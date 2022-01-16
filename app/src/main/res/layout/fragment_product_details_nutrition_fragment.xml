@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_second_vertical_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="55dp" />
+
+        <TextView
+            android:id="@+id/nutritional_guidelines"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/nutritional_guidelines"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_start"/>
+
+        <View
+            android:id="@+id/product_fat_color"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/circle"
+            app:layout_constraintTop_toTopOf="@id/product_fat"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_start" />
+
+        <TextView
+            android:id="@+id/product_fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/product_fat"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_second_vertical_start"
+            app:layout_constraintTop_toBottomOf="@id/nutritional_guidelines" />
+
+        <TextView
+            android:id="@+id/product_fat_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_second_vertical_start"
+            app:layout_constraintTop_toBottomOf="@id/product_fat" />
+
+        <View
+            android:id="@+id/product_saturated_fatty_acids_color"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/circle"
+            app:layout_constraintTop_toTopOf="@id/product_saturated_fatty_acids"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_start" />
+
+        <TextView
+            android:id="@+id/product_saturated_fatty_acids"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/product_saturated_fatty_acids"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_second_vertical_start"
+            app:layout_constraintTop_toBottomOf="@id/product_fat_quantity" />
+
+        <TextView
+            android:id="@+id/product_saturated_fatty_acids_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_second_vertical_start"
+            app:layout_constraintTop_toBottomOf="@id/product_saturated_fatty_acids" />
+
+        <View
+            android:id="@+id/product_sugars_color"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/circle"
+            app:layout_constraintTop_toTopOf="@id/product_sugars"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_start" />
+
+        <TextView
+            android:id="@+id/product_sugars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/product_sugars"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_second_vertical_start"
+            app:layout_constraintTop_toBottomOf="@id/product_saturated_fatty_acids_quantity" />
+
+        <TextView
+            android:id="@+id/product_sugars_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_second_vertical_start"
+            app:layout_constraintTop_toBottomOf="@id/product_sugars" />
+
+        <View
+            android:id="@+id/product_salt_color"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/circle"
+            app:layout_constraintTop_toTopOf="@id/product_salt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_start" />
+
+        <TextView
+            android:id="@+id/product_salt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/product_salt"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_second_vertical_start"
+            app:layout_constraintTop_toBottomOf="@id/product_sugars_quantity" />
+
+        <TextView
+            android:id="@+id/product_salt_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_second_vertical_start"
+            app:layout_constraintTop_toBottomOf="@id/product_salt" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

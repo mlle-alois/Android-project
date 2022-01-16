@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/tab_card"
+        android:title="@string/tab_card"
+        android:icon="@drawable/ic_tab_fiche" />
+    <item android:id="@+id/tab_nutrition"
+        android:title="@string/tab_nutrition"
+        android:icon="@drawable/ic_tab_nutrition" />
+    <item android:id="@+id/tab_nutritional_infos"
+        android:title="@string/tab_array"
+        android:icon="@drawable/ic_tab_tableau" />
+
+</menu>

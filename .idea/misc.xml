@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_calories.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_empty_saved.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_nav_bar_bookmarks.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_nav_bar_cart.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_nav_bar_profile.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_nav_bar_stats.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_ranking.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/toolbar_effect.xml" value="0.10555555555555556" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/layout/constraint_layout.xml" value="0.1" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fiche.xml" value="0.14266304347826086" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fiche_constraint_layout.xml" value="0.22" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fiche_linear_layout.xml" value="0.1" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/layout/item.xml" value="0.6666666666666666" />
+        <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/layout/list_item.xml" value="0.1" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/button_background.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/circle.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_calories.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_empty_saved.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_nav_bar_bookmarks.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_nav_bar_profile.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_nav_bar_stats.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_ranking.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_tab_fiche.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_tab_nutrition.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_tab_tableau.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/toolbar_effect.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/activity_main.xml" value="0.12001811594202899" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/empty_list.xml" value="0.24895833333333334" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fiche_constraint_layout.xml" value="0.1096757852077001" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fiche_linear_layout.xml" value="0.11119554204660588" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fragment_product_details.xml" value="0.1096757852077001" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fragment_product_details_nutrition_fragment.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fragment_product_details_nutritional_values_fragment.xml" value="0.24427083333333333" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fragment_product_details_summary.xml" value="0.1096757852077001" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/product.xml" value="0.12001811594202899" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/products_list.xml" value="0.22" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/menu/product_details_tabs.xml" value="0.22205128205128205" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/MonComparateur/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.26145833333333335" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_calories.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_empty_saved.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_nav_bar_bookmarks.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_nav_bar_cart.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_nav_bar_profile.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_nav_bar_stats.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/ic_ranking.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/drawable/toolbar_effect.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/activity_main.xml" value="0.6" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fiche_constraint_layout.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fragment_product_details.xml" value="0.1" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fragment_product_details_nutrition_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fragment_product_details_nutritional_values_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/fragment_product_details_summary.xml" value="0.1" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/item.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/list_item.xml" value="0.12386018237082067" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/list_products.xml" value="0.1" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/list_products_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/my_products.xml" value="0.4185185185185185" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/product.xml" value="0.1" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/product_details.xml" value="0.1" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/layout/products_list.xml" value="0.1" />
+        <entry key="..\:/Users/alois/Documents/4e AL/Reactive Programming Android/MonComparateur/app/src/main/res/menu/product_details_tabs.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

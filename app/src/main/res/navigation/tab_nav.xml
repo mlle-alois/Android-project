@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tab_nav"
+    app:startDestination="@id/tab_card">
+
+    <fragment
+        android:id="@+id/tab_card"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.ProductDetailsSummaryFragment"
+        android:label="ProductDetailsSummaryFragment" />
+    <fragment
+        android:id="@+id/tab_nutrition"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.ProductDetailsNutritionFragment"
+        android:label="ProductDetailsNutritionFragment" />
+    <fragment
+        android:id="@+id/tab_nutritional_infos"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.ProductDetailsNutritionalValuesFragment"
+        android:label="ProductDetailsNutritionalValuesFragment" />
+</navigation>

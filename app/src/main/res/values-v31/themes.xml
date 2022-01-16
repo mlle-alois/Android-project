@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MyApplication" parent="BaseTheme">
+        <!-- Point 3-->
+        <item name="android:windowSplashScreenBackground">#FFFFFF</item>
+        <!-- Point 2-->
+        <item name="android:windowSplashScreenIconBackgroundColor">
+            #000000</item>
+        <!-- Point 4-->
+        <!--TODO changer l'image en bas d'écran au lancement-->
+        <item name="android:windowSplashScreenBrandingImage">
+            @drawable/toolbar_effect</item>
+    </style>
+</resources>
