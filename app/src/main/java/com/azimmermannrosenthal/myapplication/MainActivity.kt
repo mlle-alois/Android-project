@@ -212,9 +212,9 @@ class MainActivity : AppCompatActivity() {
                 Log.d("INFO", "OUIII")
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as TrackList
-                    for(track: Track in content.trackList) {
+                    /*for(track: Track in content.trackList) {
                         Log.d("INFO", track.toString())
-                    }
+                    }*/
                     //do something
                 } else {
                     Toast.makeText(
