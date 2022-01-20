@@ -1,4 +1,4 @@
-package com.azimmermannrosenthal.myapplication
+package com.azimmermannrosenthal.myapplication.api
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

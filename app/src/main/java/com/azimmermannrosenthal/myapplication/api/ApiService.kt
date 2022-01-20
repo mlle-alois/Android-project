@@ -1,6 +1,10 @@
-package com.azimmermannrosenthal.myapplication
+package com.azimmermannrosenthal.myapplication.api
 
 
+import com.azimmermannrosenthal.myapplication.api.recuperation_lists.AlbumList
+import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
+import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedAlbumList
+import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedTrackList
 import retrofit2.Response
 import retrofit2.http.*
 

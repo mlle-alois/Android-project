@@ -1,4 +1,4 @@
-package com.azimmermannrosenthal.myapplication
+package com.azimmermannrosenthal.myapplication.objects
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

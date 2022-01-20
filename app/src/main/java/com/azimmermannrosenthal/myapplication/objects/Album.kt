@@ -1,4 +1,4 @@
-package com.azimmermannrosenthal.myapplication
+package com.azimmermannrosenthal.myapplication.objects
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
