@@ -5,14 +5,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainActivity : AppCompatActivity() {
     private val client = OkHttpClient()
@@ -41,20 +37,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun executeCall() {
+        // REGION MOST LOVED TRACKS
         MainScope().launch(Dispatchers.Main) {
             try {
-                val response = ApiClient.apiService.getPostById(1)
+                val response = ApiClient.apiService.getMostLovedTracks()
 
+                Log.d("INFO", "OUIII")
                 if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as Post
-                    Log.d("INFO", content.toString())
-                //do something
+                    val content = response.body() as LovedTrackList
+                    /*for(track: Track in content.trackList) {
+                        Log.d("INFO", track.toString())
+                    }*/
+                    //do something
                 } else {
                     Toast.makeText(
                         this@MainActivity,
                         "Error Occurred: ${response.message()}",
                         Toast.LENGTH_LONG
                     ).show()
+                    Log.d("ERROR", response.message())
                 }
 
             } catch (e: Exception) {
@@ -63,7 +64,169 @@ class MainActivity : AppCompatActivity() {
                     "Error Occurred: ${e.message}",
                     Toast.LENGTH_LONG
                 ).show()
+                Log.d("ERROR CATCH", e.message.toString())
             }
         }
+        // ENDREGION
+
+        // REGION MOST LOVED ALBUMS
+        MainScope().launch(Dispatchers.Main) {
+            try {
+                val response = ApiClient.apiService.getMostLovedAlbums()
+
+                Log.d("INFO", "OUIII")
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body() as LovedAlbumList
+                    /*for(album: Album in content.albumList) {
+                        Log.d("INFO", album.toString())
+                    }*/
+                    //do something
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error Occurred: ${response.message()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("ERROR", response.message())
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("ERROR CATCH", e.message.toString())
+            }
+        }
+        // ENDREGION
+
+        // REGION RESEARCH ARTIST
+        MainScope().launch(Dispatchers.Main) {
+            try {
+                val response = ApiClient.apiService.searchArtistByName("Céline%")
+
+                Log.d("INFO", "OUIII")
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body() as FoundedArtistList
+                    /*for(artist: Artist in content.artistList) {
+                        Log.d("INFO", artist.toString())
+                    }*/
+                    //do something
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error Occurred: ${response.message()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("ERROR", response.message())
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("ERROR CATCH", e.message.toString())
+            }
+        }
+        // ENDREGION
+
+        // REGION GET ALBUMS BY ARTIST ID
+        MainScope().launch(Dispatchers.Main) {
+            try {
+                val response = ApiClient.apiService.getAlbumsByArtistId("111239")
+
+                Log.d("INFO", "OUIII")
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body() as AlbumList
+                    /*for(album: Album in content.albumList) {
+                        Log.d("INFO", album.toString())
+                    }*/
+                    //do something
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error Occurred: ${response.message()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("ERROR", response.message())
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("ERROR CATCH", e.message.toString())
+            }
+        }
+        // ENDREGION
+
+        // REGION GET TOP 10 TRACKS BY ARTIST NAME
+        MainScope().launch(Dispatchers.Main) {
+            try {
+                val response = ApiClient.apiService.getTop10TracksByArtistName("Céline Dion")
+
+                Log.d("INFO", "OUIII")
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body() as TrackList
+                    /*for(track: Track in content.trackList) {
+                        Log.d("INFO", track.toString())
+                    }*/
+                    //do something
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error Occurred: ${response.message()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("ERROR", response.message())
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("ERROR CATCH", e.message.toString())
+            }
+        }
+        // ENDREGION
+
+        // REGION GET TRACKS BY ALBUM ID
+        MainScope().launch(Dispatchers.Main) {
+            try {
+                val response = ApiClient.apiService.getTracksByAlbumId("2109614")
+
+                Log.d("INFO", "OUIII")
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body() as TrackList
+                    for(track: Track in content.trackList) {
+                        Log.d("INFO", track.toString())
+                    }
+                    //do something
+                } else {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error Occurred: ${response.message()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("ERROR", response.message())
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("ERROR CATCH", e.message.toString())
+            }
+        }
+        // ENDREGION
     }
 }

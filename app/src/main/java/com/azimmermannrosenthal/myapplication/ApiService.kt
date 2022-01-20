@@ -1,21 +1,26 @@
 package com.azimmermannrosenthal.myapplication
 
 
-import org.w3c.dom.Comment
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
 
-    @GET("users")
-    suspend fun getUsers(): Response<MutableList<User>>
+    @GET("mostloved.php?format=track")
+    suspend fun getMostLovedTracks(): Response<LovedTrackList>
 
-    @GET("posts/{num}")
-    suspend fun getPostById(@Path("num") num : Int): Response<Post>
+    @GET("mostloved.php?format=album")
+    suspend fun getMostLovedAlbums(): Response<LovedAlbumList>
 
-    @GET("comments")
-    suspend fun getCommentsByPost(@Query("postId") postId : Int): Response<MutableList<Comment>>
+    @GET("search.php")
+    suspend fun searchArtistByName(@Query("s") artist : String): Response<FoundedArtistList> //TODO ajouter le % à la fin du nom de l'artiste
 
-    @POST("posts")
-    suspend fun createPost(@Body post: Post): Response<Post>
+    @GET("album.php")
+    suspend fun getAlbumsByArtistId(@Query("i") artistId : String): Response<AlbumList>
+
+    @GET("track-top10.php?")
+    suspend fun getTop10TracksByArtistName(@Query("s") artist: String): Response<TrackList>
+
+    @GET("track.php?")
+    suspend fun getTracksByAlbumId(@Query("m") albumId: String): Response<TrackList>
 }
