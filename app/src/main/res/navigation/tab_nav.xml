@@ -2,18 +2,18 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tab_nav"
-    app:startDestination="@id/tab_card">
+    app:startDestination="@id/tab_rankings">
 
     <fragment
-        android:id="@+id/tab_card"
-        android:name="com.azimmermannrosenthal.myapplication.fragments.ProductDetailsSummaryFragment"
+        android:id="@+id/tab_rankings"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.HomeRankingsFragment"
         android:label="ProductDetailsSummaryFragment" />
     <fragment
-        android:id="@+id/tab_nutrition"
-        android:name="com.azimmermannrosenthal.myapplication.fragments.ProductDetailsNutritionFragment"
+        android:id="@+id/tab_search"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.HomeSearchFragment"
         android:label="ProductDetailsNutritionFragment" />
     <fragment
-        android:id="@+id/tab_nutritional_infos"
-        android:name="com.azimmermannrosenthal.myapplication.fragments.ProductDetailsNutritionalValuesFragment"
+        android:id="@+id/tab_favorites"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.HomeFavoritesFragment"
         android:label="ProductDetailsNutritionalValuesFragment" />
 </navigation>

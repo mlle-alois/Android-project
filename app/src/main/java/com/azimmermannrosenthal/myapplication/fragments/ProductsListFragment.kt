@@ -104,7 +104,7 @@ class ProductsListFragment : Fragment() { // ne JAMAIS passer de paramètres au 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(products.isNotEmpty()) {
+        /*if(products.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.products_list).run {
                 adapter = ProductAdapter(products,
                     findViewById<RecyclerView>(R.id.products_list).context,
@@ -124,7 +124,7 @@ class ProductsListFragment : Fragment() { // ne JAMAIS passer de paramètres au 
                 //requireContext() correspond à this
                 layoutManager = LinearLayoutManager(requireContext())
             }
-        }
+        }*/
 
         view.findViewById<Button>(R.id.products_start_scan).setOnClickListener {
             startActivityForResult(Intent("com.google.zxing.client.android.SCAN"), 100)

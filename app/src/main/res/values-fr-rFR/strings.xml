@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mon comparateur</string>
+    <string name="app_name">Application Musicale</string>
     <string name="product_title">%1$s</string>
     <string name="product_mark">%1$s</string>
     <string name="product_barcode">Code barres : %1$s</string>
@@ -10,9 +10,6 @@
     <string name="product_additives">Additifs : %1$s</string>
     <string name="product_nutriscore">Nutriscore: %1$s</string>
     <string name="product_calories">%1$s kCal/part</string>
-    <string name="tab_card">Fiche</string>
-    <string name="tab_nutrition">Nutrition</string>
-    <string name="tab_array">Infos Nutritionnelles</string>
     <string name="nutritional_guidelines">Repères nutritionnels pour 100g</string>
     <string name="product_fat">%1$s%2$s de Matières grasses / Lipides</string>
     <string name="product_saturated_fatty_acids">%1$s%2$s d\'Acides gras saturés</string>
@@ -36,4 +33,8 @@
     <string name="havent_scanned_anything">Vous n\'avez encore rien scanné !</string>
     <string name="click_button_below">Cliquez sur le bouton ci-dessous pour commencer.</string>
     <string name="scan_product">Scanner un produit</string>
+    <string name="tab_rankings">Classements</string>
+    <string name="tab_research">Recherche</string>
+    <string name="to_research">Rechercher</string>
+    <string name="tab_favorites">Favoris</string>
 </resources>

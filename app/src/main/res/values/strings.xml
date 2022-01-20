@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OpenFoodFacts</string>
+    <string name="app_name">Musical application</string>
     <string name="product_title">%1$s</string>
     <string name="product_mark">%1$s</string>
     <string name="product_barcode">Bar code : %1$s</string>
@@ -10,9 +10,6 @@
     <string name="product_additives">Additives: %1$s</string>
     <string name="product_nutriscore">Nutriscore: %1$s</string>
     <string name="product_calories">%1$s kCal/part</string>
-    <string name="tab_card">Card</string>
-    <string name="tab_nutrition">Nutrition</string>
-    <string name="tab_array">Nutritional Infos</string>
     <string name="nutritional_guidelines">Nutritional guidelines per 100g</string>
     <string name="product_fat">%1$s%2$s of Fat / Lipids</string>
     <string name="product_saturated_fatty_acids">%1$s%2$s of Saturated fatty acids</string>
@@ -36,4 +33,8 @@
     <string name="havent_scanned_anything">You haven\'t scanned anything yet !</string>
     <string name="click_button_below">Click the button below to get started.</string>
     <string name="scan_product">Scan a product</string>
+    <string name="tab_rankings">Rankings</string>
+    <string name="tab_research">Research</string>
+    <string name="to_research">To research</string>
+    <string name="tab_favorites">Favorites</string>
 </resources>

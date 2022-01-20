@@ -3,7 +3,6 @@ package com.azimmermannrosenthal.myapplication
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.azimmermannrosenthal.myapplication.fragments.ProductDetailsFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        setTitle("Mes produits")
+        setTitle("Classements")
 
         /*supportFragmentManager
             .beginTransaction()

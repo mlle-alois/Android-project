@@ -7,14 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import com.azimmermannrosenthal.myapplication.R
-import kotlinx.android.synthetic.main.fragment_product_details_summary.view.*
+import com.azimmermannrosenthal.myapplication.*
 
-class ProductDetailsNutritionFragment : Fragment() {
+class HomeSearchFragment : Fragment() {
 
     val MAX_OF_FAT_IN_GRAMS = 15;
     val MAX_OF_SATURATED_FATTY_ACIDS_IN_GRAMS = 4;
@@ -27,7 +26,7 @@ class ProductDetailsNutritionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-            R.layout.fragment_product_details_nutrition_fragment,
+            R.layout.fragment_home_search,
             container,
             false
         )
@@ -36,9 +35,35 @@ class ProductDetailsNutritionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val product = ProductDetailsFragmentArgs.fromBundle(
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.to_research)
+
+        /*val product = ProductDetailsFragmentArgs.fromBundle(
             requireParentFragment().requireParentFragment().requireArguments()
-        ).product
+        ).product*/
+        val product = Product(
+            "Petits pois et carottes",
+            "Cassegrain",
+            "3083680085304",
+            Nutriscore.A,
+            "static.openfoodfacts.org/images/products/308/368/008/5304/front_fr.7.400.jpg",
+            "400g (280g net égoutté)",
+            "France, Japon, Suisse",
+            "Petits pois 66%, eau, garniture 2,8% (salade, oignon grelot), sucre, sel, arôme naturel",
+            "Aucune",
+            "Aucun",
+            "234 kCal/part",
+            NutritionFacts(
+                NutritionFactsItem("kj", 293.0, 0.0),
+                NutritionFactsItem("g", 0.8, 0.0),
+                NutritionFactsItem("g", 0.1, 0.0),
+                NutritionFactsItem("g", 8.4, 0.0),
+                NutritionFactsItem("g", 5.2, 0.0),
+                NutritionFactsItem("g", 5.2, 0.0),
+                NutritionFactsItem("g", 4.8, 0.0),
+                NutritionFactsItem("g", 0.75, 0.0),
+                NutritionFactsItem("g", 0.295, 0.0)
+            )
+        )
 
         view.findViewById<TextView>(R.id.product_fat).text = getString(
             R.string.product_fat,

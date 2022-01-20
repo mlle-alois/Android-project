@@ -2,22 +2,22 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_nav"
-    app:startDestination="@id/productsListFragment">
+    app:startDestination="@id/productDetailsFragment">
 
-    <fragment
+    <!--<fragment
         android:id="@+id/productsListFragment"
         android:name="com.azimmermannrosenthal.myapplication.fragments.ProductsListFragment"
         android:label="ProductsListFragment" >
         <action
             android:id="@+id/action_productsListFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
-    </fragment>
+    </fragment>-->
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.azimmermannrosenthal.myapplication.fragments.ProductDetailsFragment"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.HomeFragment"
         android:label="ProductDetailsFragment" >
-        <argument
+        <!--<argument
             android:name="product"
-            app:argType="com.azimmermannrosenthal.myapplication.Product" />
+            app:argType="com.azimmermannrosenthal.myapplication.Product" />-->
     </fragment>
 </navigation>
