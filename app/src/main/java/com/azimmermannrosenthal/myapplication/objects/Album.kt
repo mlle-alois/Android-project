@@ -18,5 +18,6 @@ data class Album(
     val intLoved: String,
     val intScore: String,
     val intScoreVotes: String,
+    val strAlbumThumb: String,
     //TODO ajouter éventuels champs manquants / enlever ceux inutiles
 ) : Parcelable

@@ -13,5 +13,6 @@ data class Track(
     val strAlbum: String,
     val strArtist: String,
     val strGenre: String,
+    val strTrackThumb: String
     //TODO ajouter éventuels champs manquants / enlever ceux inutiles
 ) : Parcelable

@@ -3,6 +3,7 @@ package com.azimmermannrosenthal.myapplication.fragments
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,7 @@ class HomeSearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.to_research)
+        (activity as AppCompatActivity).supportActionBar?.title = Html.fromHtml("<font color=\"black\">" + getString(R.string.to_research) + "</font>");
 
         /*val product = ProductDetailsFragmentArgs.fromBundle(
             requireParentFragment().requireParentFragment().requireArguments()

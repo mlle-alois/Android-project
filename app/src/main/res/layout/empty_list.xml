@@ -40,7 +40,7 @@
         android:textSize="14sp"/>
 
     <Button
-        android:id="@+id/products_start_scan"
+        android:id="@+id/tracks_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

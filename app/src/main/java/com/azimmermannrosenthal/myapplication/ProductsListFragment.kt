@@ -3,7 +3,6 @@ package com.azimmermannrosenthal.myapplication.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azimmermannrosenthal.myapplication.*
 
@@ -126,7 +123,7 @@ class ProductsListFragment : Fragment() { // ne JAMAIS passer de paramètres au 
             }
         }*/
 
-        view.findViewById<Button>(R.id.products_start_scan).setOnClickListener {
+        view.findViewById<Button>(R.id.tracks_button).setOnClickListener {
             startActivityForResult(Intent("com.google.zxing.client.android.SCAN"), 100)
         }
     }
@@ -155,30 +152,30 @@ class ProductAdapter(
     val products: List<Product>,
     val context: Context,
     val listener: ItemClickListener
-) : RecyclerView.Adapter<ListProductsCell>() {
+) : RecyclerView.Adapter<HomeRankingsFragment.ListItemCell>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListProductsCell {
-        return ListProductsCell(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRankingsFragment.ListItemCell {
+        return HomeRankingsFragment.ListItemCell(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.product, parent, false)
         )
     }
 
-    override fun onBindViewHolder(listProductsCell: ListProductsCell, position: Int) {
+    override fun onBindViewHolder(listItemCell: HomeRankingsFragment.ListItemCell, position: Int) {
 
         val product = products.get(position)
 
-        listProductsCell.product_title.text =
+        /*listTrackCell.product_title.text =
             context.getString(R.string.product_title, product.name)
-        listProductsCell.product_mark.text = context.getString(R.string.product_mark, product.mark)
-        listProductsCell.product_nutriscore.text =
+        listTrackCell.product_mark.text = context.getString(R.string.product_mark, product.mark)
+        listTrackCell.product_nutriscore.text =
             context.getString(R.string.product_nutriscore, product.nutriscore)
-        listProductsCell.product_calories.text =
+        listTrackCell.product_calories.text =
             context.getString(R.string.product_calories, product.calories)
 
-        listProductsCell.itemView.setOnClickListener {
+        listTrackCell.itemView.setOnClickListener {
             listener.onItemClicked(position)
-        }
+        }*/
     }
 
     override fun getItemCount(): Int {
@@ -190,7 +187,7 @@ class ProductAdapter(
 //attribution des valeurs
 class ListProductsCell(v: View) : RecyclerView.ViewHolder(v) {
 
-    val product_title = v.findViewById<TextView>(R.id.product_title)
+    val product_title = v.findViewById<TextView>(R.id.titles)
     val product_mark = v.findViewById<TextView>(R.id.product_mark)
     val product_nutriscore = v.findViewById<TextView>(R.id.product_nutriscore)
     val product_calories = v.findViewById<TextView>(R.id.product_calories)

@@ -1,19 +1,31 @@
 package com.azimmermannrosenthal.myapplication.fragments
 
-import android.graphics.Typeface
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.StyleSpan
+import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.azimmermannrosenthal.myapplication.*
-import kotlinx.android.synthetic.main.fragment_home_rankings.view.*
+import com.azimmermannrosenthal.myapplication.api.ApiClient
+import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedAlbumList
+import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedTrackList
+import com.azimmermannrosenthal.myapplication.objects.Album
+import com.azimmermannrosenthal.myapplication.objects.Track
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import com.squareup.picasso.Picasso
 
-class HomeRankingsFragment: Fragment() {
+
+class HomeRankingsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,67 +42,230 @@ class HomeRankingsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.tab_rankings)
+        (activity as AppCompatActivity).supportActionBar?.title =
+            Html.fromHtml("<font color=\"black\">" + getString(R.string.tab_rankings) + "</font>")
 
-        //val product = ProductDetailsFragmentArgs.fromBundle(requireParentFragment().requireParentFragment().requireArguments()).product
-        val product = Product(
-            "Petits pois et carottes",
-            "Cassegrain",
-            "3083680085304",
-            Nutriscore.A,
-            "static.openfoodfacts.org/images/products/308/368/008/5304/front_fr.7.400.jpg",
-            "400g (280g net égoutté)",
-            "France, Japon, Suisse",
-            "Petits pois 66%, eau, garniture 2,8% (salade, oignon grelot), sucre, sel, arôme naturel",
-            "Aucune",
-            "Aucun",
-            "234 kCal/part",
-            NutritionFacts(
-                NutritionFactsItem("kj", 293.0, 0.0),
-                NutritionFactsItem("g", 0.8, 0.0),
-                NutritionFactsItem("g", 0.1, 0.0),
-                NutritionFactsItem("g", 8.4, 0.0),
-                NutritionFactsItem("g", 5.2, 0.0),
-                NutritionFactsItem("g", 5.2, 0.0),
-                NutritionFactsItem("g", 4.8, 0.0),
-                NutritionFactsItem("g", 0.75, 0.0),
-                NutritionFactsItem("g", 0.295, 0.0)
-            )
-        )
+        setMostLovedTracks(view)
 
-        view.findViewById<TextView>(R.id.product_title).text = getString(R.string.product_title, product.name)
-        view.findViewById<TextView>(R.id.product_mark).text = getString(R.string.product_mark, product.mark)
+        val tracksTextView: TextView = view.findViewById(R.id.tracks)
+        tracksTextView.setOnClickListener((View.OnClickListener {
+            /*val ii: Intent = Intent()
+            //TODO ii.setClass()
+            startActivity(ii)*/
+            Log.d("TAG", "Clicked !!!")
+            setMostLovedTracks(view)
+        }))
 
-        view.findViewById<TextView>(R.id.product_barcode).setBoldValue(
-            getString(R.string.product_barcode, product.barcode)
-        )
-        view.product_quantity.setBoldValue( //raccourci possible grâce à 'kotlin-android-extensions'(build.gradle)
-            getString(R.string.product_quantity, product.quantity)
-        )
-        view.findViewById<TextView>(R.id.product_sold_in).setBoldValue(
-            getString(R.string.product_sold_in, product.sold_in)
-        )
-        view.findViewById<TextView>(R.id.product_ingredients).setBoldValue(
-            getString(R.string.product_ingredients, product.ingredients)
-        )
-        view.findViewById<TextView>(R.id.product_allergenic_substances).setBoldValue(
-            getString(R.string.product_allergenic_substances, product.allegenics_substances)
-        )
-        view.findViewById<TextView>(R.id.product_additives).setBoldValue(
-            getString(R.string.product_additives, product.additives)
-        )
+        val albumsTextView: TextView = view.findViewById(R.id.albmums)
+        albumsTextView.setOnClickListener((View.OnClickListener {
+            /*val ii: Intent = Intent()
+            //TODO ii.setClass()
+            startActivity(ii)*/
+            Log.d("TAG", "Clicked !!!")
+            setMostLovedAlbums(view)
+        }))
     }
 
-    //TextView --> applique la méthode de façon globale au TextView
-    fun TextView.setBoldValue(value: String) {
+    fun setMostLovedTracks(
+        view: View
+    ) {
+        // REGION MOST LOVED TRACKS
+        val tracks: MutableList<Track> = arrayListOf()
 
-        //récupérer l'index du caractère ':'
-        val index = value.indexOf(':')
+        MainScope().launch(Dispatchers.Main) {
+            try {
+                //TODO barre de chargement
+                val response = ApiClient.apiService.getMostLovedTracks()
 
-        //passe une partie de la chaine en gras
-        val spannable = SpannableString(value)
-        spannable.setSpan(StyleSpan(Typeface.BOLD), 0, index, 0) //de 0 à index
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body() as LovedTrackList
+                    for (track: Track in content.trackList) {
+                        if (tracks.size >= 8) {
+                            break
+                        }
+                        tracks.add(track)
+                    }
 
-        text = spannable
+                    if (tracks.isNotEmpty()) {
+                        view.findViewById<RecyclerView>(R.id.track_list).run {
+                            adapter = TrackAdapter(
+                                tracks,
+                                //findViewById<RecyclerView>(R.id.track_list).context,
+                                listener = object : ItemClickListener {
+                                    override fun onItemClicked(position: Int) {
+                                        Log.d("ITEM_CLICKED", "Position $position")
+                                        //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
+                                        /*findNavController().navigate(
+                                            ProductsListFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
+                                                products[position]
+                                            )
+                                        )*/
+                                    }
+                                }
+                            )
+
+                            //requireContext() correspond à this
+                            layoutManager = LinearLayoutManager(requireContext())
+                        }
+                    }
+
+                } else {
+                    Toast.makeText(
+                        activity,
+                        "Error Occurred: ${response.message()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("ERROR", response.message())
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(
+                    activity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("ERROR CATCH", e.message.toString())
+            }
+        }
+        // ENDREGION
+    }
+
+    fun setMostLovedAlbums(
+        view: View
+    ) {
+        // REGION MOST LOVED ALBUMS
+        val albums: MutableList<Album> = arrayListOf()
+        MainScope().launch(Dispatchers.Main) {
+            try {
+                //TODO barre de chargement
+                val response = ApiClient.apiService.getMostLovedAlbums()
+
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body() as LovedAlbumList
+                    for (album: Album in content.albumList) {
+                        if (albums.size >= 8) {
+                            break
+                        }
+                        albums.add(album)
+                    }
+
+                    if (albums.isNotEmpty()) {
+                        view.findViewById<RecyclerView>(R.id.track_list).run {
+                            adapter = AlbumAdapter(
+                                albums,
+                                //findViewById<RecyclerView>(R.id.track_list).context,
+                                listener = object : ItemClickListener {
+                                    override fun onItemClicked(position: Int) {
+                                        Log.d("ITEM_CLICKED", "Position $position")
+                                        //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
+                                        /*findNavController().navigate(
+                                            ProductsListFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
+                                                products[position]
+                                            )
+                                        )*/
+                                    }
+                                }
+                            )
+
+                            //requireContext() correspond à this
+                            layoutManager = LinearLayoutManager(requireContext())
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        activity,
+                        "Error Occurred: ${response.message()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("ERROR", response.message())
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(
+                    activity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+                Log.d("ERROR CATCH", e.message.toString())
+            }
+        }
+        // ENDREGION
+    }
+
+    class TrackAdapter(
+        val tracks: List<Track>,
+        val listener: ItemClickListener
+    ) : RecyclerView.Adapter<ListItemCell>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemCell {
+            return ListItemCell(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.home_list, parent, false)
+            )
+        }
+
+        override fun onBindViewHolder(listItemCell: ListItemCell, position: Int) {
+
+            val track = tracks.get(position)
+
+            listItemCell.item_number.text = (position + 1).toString()
+            Picasso.get().load(track.strTrackThumb).into(listItemCell.item_image)
+            listItemCell.item_title.text = track.strTrack
+            listItemCell.item_artist.text = track.strArtist
+
+            /*listTrackCell.itemView.setOnClickListener {
+                listener.onItemClicked(position)
+            }*/
+        }
+
+        override fun getItemCount(): Int {
+            return tracks.size
+        }
+
+    }
+
+    class ListItemCell(v: View) : RecyclerView.ViewHolder(v) {
+
+        val item_number = v.findViewById<TextView>(R.id.item_number)
+        val item_image = v.findViewById<ImageView>(R.id.item_image)
+        val item_title = v.findViewById<TextView>(R.id.item_title)
+        val item_artist = v.findViewById<TextView>(R.id.item_artist)
+
+    }
+
+    class AlbumAdapter(
+        val albums: List<Album>,
+        val listener: ItemClickListener
+    ) : RecyclerView.Adapter<ListItemCell>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemCell {
+            return ListItemCell(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.home_list, parent, false)
+            )
+        }
+
+        override fun onBindViewHolder(listItemCell: ListItemCell, position: Int) {
+
+            val track = albums.get(position)
+
+            listItemCell.item_number.text = (position + 1).toString()
+            Picasso.get().load(track.strAlbumThumb).into(listItemCell.item_image)
+            listItemCell.item_title.text = track.strAlbum
+            listItemCell.item_artist.text = track.strArtist
+
+            /*listTrackCell.itemView.setOnClickListener {
+                listener.onItemClicked(position)
+            }*/
+        }
+
+        override fun getItemCount(): Int {
+            return albums.size
+        }
+
+    }
+
+    interface ItemClickListener {
+        fun onItemClicked(position: Int);
     }
 }

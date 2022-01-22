@@ -1,6 +1,7 @@
 package com.azimmermannrosenthal.myapplication.fragments
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ class HomeFavoritesFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.tab_favorites)
+        (activity as AppCompatActivity).supportActionBar?.title = Html.fromHtml("<font color=\"black\">" + getString(R.string.tab_favorites) + "</font>");
 
         /*val product = ProductDetailsFragmentArgs.fromBundle(
             requireParentFragment().requireParentFragment().requireArguments()
