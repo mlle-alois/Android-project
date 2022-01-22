@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,23 +48,24 @@ class HomeRankingsFragment : Fragment() {
 
         setMostLovedTracks(view)
 
+        // Switch entre titres et albums
         val tracksTextView: TextView = view.findViewById(R.id.tracks)
-        tracksTextView.setOnClickListener((View.OnClickListener {
-            /*val ii: Intent = Intent()
-            //TODO ii.setClass()
-            startActivity(ii)*/
-            Log.d("TAG", "Clicked !!!")
+        tracksTextView.setOnClickListener(View.OnClickListener {
+            it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
+            view.findViewById<TextView>(R.id.tracks).setTextColor(ContextCompat.getColor(view.context, R.color.black))
+            view.findViewById<TextView>(R.id.albmums).setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
+            view.findViewById<TextView>(R.id.albmums).background = ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
             setMostLovedTracks(view)
-        }))
+        })
 
         val albumsTextView: TextView = view.findViewById(R.id.albmums)
-        albumsTextView.setOnClickListener((View.OnClickListener {
-            /*val ii: Intent = Intent()
-            //TODO ii.setClass()
-            startActivity(ii)*/
-            Log.d("TAG", "Clicked !!!")
+        albumsTextView.setOnClickListener(View.OnClickListener {
+            it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
+            view.findViewById<TextView>(R.id.albmums).setTextColor(ContextCompat.getColor(view.context, R.color.black))
+            view.findViewById<TextView>(R.id.tracks).setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
+            view.findViewById<TextView>(R.id.tracks).background = ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
             setMostLovedAlbums(view)
-        }))
+        })
     }
 
     fun setMostLovedTracks(

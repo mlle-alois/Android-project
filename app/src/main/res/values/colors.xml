@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="home_artist_color">#8D8D8D</color>
+    <color name="home_light_grey">#8D8D8D</color>
     <color name="colorPrimary">#0EAD69</color>
     <color name="icon_selected">#0EAD69</color>
     <color name="toolbar_gradient_start">#0EAD69</color>
