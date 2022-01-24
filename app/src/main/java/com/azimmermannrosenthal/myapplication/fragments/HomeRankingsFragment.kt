@@ -25,8 +25,13 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import com.squareup.picasso.Picasso
 
-
 class HomeRankingsFragment : Fragment() {
+
+    private var tracks = mutableListOf<Track>()
+    private var albums = mutableListOf<Album>()
+
+    // Unique id for loader
+    private val LDR_BASIC_ID = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,40 +48,49 @@ class HomeRankingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        tracks = initTracks(view)
+        albums = initAlbums()
+
         (activity as AppCompatActivity).supportActionBar?.title =
             Html.fromHtml("<font color=\"black\">" + getString(R.string.tab_rankings) + "</font>")
 
-        setMostLovedTracks(view)
+        setMostLovedTracks(view, tracks)
 
         // Switch entre titres et albums
         val tracksTextView: TextView = view.findViewById(R.id.tracks)
         tracksTextView.setOnClickListener(View.OnClickListener {
             it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
-            view.findViewById<TextView>(R.id.tracks).setTextColor(ContextCompat.getColor(view.context, R.color.black))
-            view.findViewById<TextView>(R.id.albmums).setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
-            view.findViewById<TextView>(R.id.albmums).background = ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
-            setMostLovedTracks(view)
+            view.findViewById<TextView>(R.id.tracks)
+                .setTextColor(ContextCompat.getColor(view.context, R.color.black))
+            view.findViewById<TextView>(R.id.albmums)
+                .setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
+            view.findViewById<TextView>(R.id.albmums).background =
+                ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
+            setMostLovedTracks(view, tracks)
         })
 
         val albumsTextView: TextView = view.findViewById(R.id.albmums)
         albumsTextView.setOnClickListener(View.OnClickListener {
             it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
-            view.findViewById<TextView>(R.id.albmums).setTextColor(ContextCompat.getColor(view.context, R.color.black))
-            view.findViewById<TextView>(R.id.tracks).setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
-            view.findViewById<TextView>(R.id.tracks).background = ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
-            setMostLovedAlbums(view)
+            view.findViewById<TextView>(R.id.albmums)
+                .setTextColor(ContextCompat.getColor(view.context, R.color.black))
+            view.findViewById<TextView>(R.id.tracks)
+                .setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
+            view.findViewById<TextView>(R.id.tracks).background =
+                ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
+            setMostLovedAlbums(view, albums)
         })
     }
 
-    fun setMostLovedTracks(
+    fun initTracks(
         view: View
-    ) {
-        // REGION MOST LOVED TRACKS
+    ): MutableList<Track> {
         val tracks: MutableList<Track> = arrayListOf()
 
         MainScope().launch(Dispatchers.Main) {
             try {
                 //TODO barre de chargement
+                //TODO rassembler ce code dans une classe spéciale API ?
                 val response = ApiClient.apiService.getMostLovedTracks()
 
                 if (response.isSuccessful && response.body() != null) {
@@ -87,30 +101,7 @@ class HomeRankingsFragment : Fragment() {
                         }
                         tracks.add(track)
                     }
-
-                    if (tracks.isNotEmpty()) {
-                        view.findViewById<RecyclerView>(R.id.track_list).run {
-                            adapter = TrackAdapter(
-                                tracks,
-                                //findViewById<RecyclerView>(R.id.track_list).context,
-                                listener = object : ItemClickListener {
-                                    override fun onItemClicked(position: Int) {
-                                        Log.d("ITEM_CLICKED", "Position $position")
-                                        //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
-                                        /*findNavController().navigate(
-                                            ProductsListFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
-                                                products[position]
-                                            )
-                                        )*/
-                                    }
-                                }
-                            )
-
-                            //requireContext() correspond à this
-                            layoutManager = LinearLayoutManager(requireContext())
-                        }
-                    }
-
+                    setMostLovedTracks(view, tracks)
                 } else {
                     Toast.makeText(
                         activity,
@@ -119,7 +110,7 @@ class HomeRankingsFragment : Fragment() {
                     ).show()
                     Log.d("ERROR", response.message())
                 }
-
+                //TODO permettre de relancer la requête en cas d'erreur
             } catch (e: Exception) {
                 Toast.makeText(
                     activity,
@@ -129,13 +120,10 @@ class HomeRankingsFragment : Fragment() {
                 Log.d("ERROR CATCH", e.message.toString())
             }
         }
-        // ENDREGION
+        return tracks;
     }
 
-    fun setMostLovedAlbums(
-        view: View
-    ) {
-        // REGION MOST LOVED ALBUMS
+    fun initAlbums(): MutableList<Album> {
         val albums: MutableList<Album> = arrayListOf()
         MainScope().launch(Dispatchers.Main) {
             try {
@@ -150,29 +138,6 @@ class HomeRankingsFragment : Fragment() {
                         }
                         albums.add(album)
                     }
-
-                    if (albums.isNotEmpty()) {
-                        view.findViewById<RecyclerView>(R.id.track_list).run {
-                            adapter = AlbumAdapter(
-                                albums,
-                                //findViewById<RecyclerView>(R.id.track_list).context,
-                                listener = object : ItemClickListener {
-                                    override fun onItemClicked(position: Int) {
-                                        Log.d("ITEM_CLICKED", "Position $position")
-                                        //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
-                                        /*findNavController().navigate(
-                                            ProductsListFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
-                                                products[position]
-                                            )
-                                        )*/
-                                    }
-                                }
-                            )
-
-                            //requireContext() correspond à this
-                            layoutManager = LinearLayoutManager(requireContext())
-                        }
-                    }
                 } else {
                     Toast.makeText(
                         activity,
@@ -191,7 +156,64 @@ class HomeRankingsFragment : Fragment() {
                 Log.d("ERROR CATCH", e.message.toString())
             }
         }
-        // ENDREGION
+        return albums;
+    }
+
+    fun setMostLovedTracks(
+        view: View,
+        tracks: List<Track>
+    ) {
+
+        if (tracks.isNotEmpty()) {
+            view.findViewById<RecyclerView>(R.id.track_list).run {
+                adapter = TrackAdapter(
+                    tracks,
+                    //findViewById<RecyclerView>(R.id.track_list).context,
+                    listener = object : ItemClickListener {
+                        override fun onItemClicked(position: Int) {
+                            Log.d("ITEM_CLICKED", "Position $position")
+                            //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
+                            /*findNavController().navigate(
+                                ProductsListFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
+                                    products[position]
+                                )
+                            )*/
+                        }
+                    }
+                )
+
+                //requireContext() correspond à this
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+        }
+    }
+
+    fun setMostLovedAlbums(
+        view: View,
+        albums: List<Album>
+    ) {
+        if (albums.isNotEmpty()) {
+            view.findViewById<RecyclerView>(R.id.track_list).run {
+                adapter = AlbumAdapter(
+                    albums,
+                    //findViewById<RecyclerView>(R.id.track_list).context,
+                    listener = object : ItemClickListener {
+                        override fun onItemClicked(position: Int) {
+                            Log.d("ITEM_CLICKED", "Position $position")
+                            //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
+                            /*findNavController().navigate(
+                                ProductsListFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
+                                    products[position]
+                                )
+                            )*/
+                        }
+                    }
+                )
+
+                //requireContext() correspond à this
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+        }
     }
 
     class TrackAdapter(
