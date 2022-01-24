@@ -3,7 +3,6 @@ package com.azimmermannrosenthal.myapplication
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.azimmermannrosenthal.myapplication.api.ApiClient
@@ -55,20 +54,10 @@ class MainActivity : AppCompatActivity() {
                     }*/
                     //do something
                 } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Error Occurred: ${response.message()}",
-                        Toast.LENGTH_LONG
-                    ).show()
                     Log.d("ERROR", response.message())
                 }
 
             } catch (e: Exception) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
                 Log.d("ERROR CATCH", e.message.toString())
             }
         }
@@ -86,20 +75,10 @@ class MainActivity : AppCompatActivity() {
                     }*/
                     //do something
                 } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Error Occurred: ${response.message()}",
-                        Toast.LENGTH_LONG
-                    ).show()
                     Log.d("ERROR", response.message())
                 }
 
             } catch (e: Exception) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
                 Log.d("ERROR CATCH", e.message.toString())
             }
         }
@@ -117,20 +96,10 @@ class MainActivity : AppCompatActivity() {
                     }*/
                     //do something
                 } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Error Occurred: ${response.message()}",
-                        Toast.LENGTH_LONG
-                    ).show()
                     Log.d("ERROR", response.message())
                 }
 
             } catch (e: Exception) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
                 Log.d("ERROR CATCH", e.message.toString())
             }
         }
@@ -148,20 +117,10 @@ class MainActivity : AppCompatActivity() {
                     }*/
                     //do something
                 } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Error Occurred: ${response.message()}",
-                        Toast.LENGTH_LONG
-                    ).show()
                     Log.d("ERROR", response.message())
                 }
 
             } catch (e: Exception) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
                 Log.d("ERROR CATCH", e.message.toString())
             }
         }
@@ -179,20 +138,10 @@ class MainActivity : AppCompatActivity() {
                     }*/
                     //do something
                 } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Error Occurred: ${response.message()}",
-                        Toast.LENGTH_LONG
-                    ).show()
                     Log.d("ERROR", response.message())
                 }
 
             } catch (e: Exception) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
                 Log.d("ERROR CATCH", e.message.toString())
             }
         }

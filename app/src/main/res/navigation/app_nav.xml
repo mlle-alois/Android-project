@@ -8,8 +8,5 @@
         android:id="@+id/homeFragment"
         android:name="com.azimmermannrosenthal.myapplication.fragments.HomeFragment"
         android:label="ProductDetailsFragment" >
-        <action
-            android:id="@+id/homeFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

@@ -54,31 +54,29 @@ class HomeRankingsFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title =
             Html.fromHtml("<font color=\"black\">" + getString(R.string.tab_rankings) + "</font>")
 
-        setMostLovedTracks(view, tracks)
-
         // Switch entre titres et albums
         val tracksTextView: TextView = view.findViewById(R.id.tracks)
         tracksTextView.setOnClickListener(View.OnClickListener {
             it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
+            view.findViewById<TextView>(R.id.albmums).background =
+                ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
+            setMostLovedTracks(view, tracks)
             view.findViewById<TextView>(R.id.tracks)
                 .setTextColor(ContextCompat.getColor(view.context, R.color.black))
             view.findViewById<TextView>(R.id.albmums)
                 .setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
-            view.findViewById<TextView>(R.id.albmums).background =
-                ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
-            setMostLovedTracks(view, tracks)
         })
 
         val albumsTextView: TextView = view.findViewById(R.id.albmums)
         albumsTextView.setOnClickListener(View.OnClickListener {
             it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
+            view.findViewById<TextView>(R.id.tracks).background =
+                ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
+            setMostLovedAlbums(view, albums)
             view.findViewById<TextView>(R.id.albmums)
                 .setTextColor(ContextCompat.getColor(view.context, R.color.black))
             view.findViewById<TextView>(R.id.tracks)
                 .setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
-            view.findViewById<TextView>(R.id.tracks).background =
-                ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
-            setMostLovedAlbums(view, albums)
         })
     }
 
@@ -103,20 +101,10 @@ class HomeRankingsFragment : Fragment() {
                     }
                     setMostLovedTracks(view, tracks)
                 } else {
-                    Toast.makeText(
-                        activity,
-                        "Error Occurred: ${response.message()}",
-                        Toast.LENGTH_LONG
-                    ).show()
                     Log.d("ERROR", response.message())
                 }
                 //TODO permettre de relancer la requête en cas d'erreur
             } catch (e: Exception) {
-                Toast.makeText(
-                    activity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
                 Log.d("ERROR CATCH", e.message.toString())
             }
         }
@@ -139,20 +127,10 @@ class HomeRankingsFragment : Fragment() {
                         albums.add(album)
                     }
                 } else {
-                    Toast.makeText(
-                        activity,
-                        "Error Occurred: ${response.message()}",
-                        Toast.LENGTH_LONG
-                    ).show()
                     Log.d("ERROR", response.message())
                 }
 
             } catch (e: Exception) {
-                Toast.makeText(
-                    activity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
                 Log.d("ERROR CATCH", e.message.toString())
             }
         }
