@@ -46,7 +46,6 @@
         android:layout_gravity="center"
         android:layout_margin="15dp"
         android:textSize="14sp"
-        android:background="@drawable/button_background"
         android:text="@string/scan_product"
         android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"

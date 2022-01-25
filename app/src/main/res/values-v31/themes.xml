@@ -9,6 +9,6 @@
         <!-- Point 4-->
         <!--TODO changer l'image en bas d'écran au lancement-->
         <item name="android:windowSplashScreenBrandingImage">
-            @drawable/toolbar_effect</item>
+            @color/white</item>
     </style>
 </resources>

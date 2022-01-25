@@ -10,14 +10,10 @@
     <color name="home_light_grey">#8D8D8D</color>
     <color name="colorPrimary">#0EAD69</color>
     <color name="icon_selected">#0EAD69</color>
-    <color name="toolbar_gradient_start">#0EAD69</color>
-    <color name="colorPrimaryDark">#13955E</color>
+    <color name="colorPrimaryDark">#FFBB86FC</color>
+    <color name="textColorPrimary">#FF000000</color>
     <color name="colorAccent">#13955E</color>
-    <color name="toolbar_gradient_end">#81D74E</color>
     <color name="icon_default">#E63E11</color>
     <color name="main_navigation_bg">#EBEBEB</color>
-    <color name="nutrient_level_low">#85BB2F</color>
-    <color name="nutrient_level_moderate">#FDCB01</color>
-    <color name="nutrient_level_high">#E63E12</color>
     <color name="bottom_bar_default">#EBEBEB</color>
 </resources>

@@ -124,26 +124,24 @@ class HomeSearchFragment : Fragment() {
         quantity: Double,
         max: Int
     ) {
-        if (quantity < max * 0.2) {
+        /*if (quantity < max * 0.2) {
             DrawableCompat.setTintList(
                 colorView.background,
-                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.nutrient_level_low))
+                //ColorStateList.valueOf(ContextCompat.getColor(context, R.color.nutrient_level_low))
             )
             levelTextView.setText(R.string.nutrient_level_low)
         } else if (quantity < max) {
             DrawableCompat.setTintList(
                 colorView.background,
-                ColorStateList.valueOf(
-                    ContextCompat.getColor(context, R.color.nutrient_level_moderate)
-                )
+                //ColorStateList.valueOf(ContextCompat.getColor(context, R.color.nutrient_level_moderate))
             )
             levelTextView.setText(R.string.nutrient_level_moderate)
         } else {
             DrawableCompat.setTintList(
                 colorView.background,
-                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.nutrient_level_high))
+                //ColorStateList.valueOf(ContextCompat.getColor(context, R.color.nutrient_level_high))
             )
             levelTextView.setText(R.string.nutrient_level_high)
-        }
+        }*/
     }
 }

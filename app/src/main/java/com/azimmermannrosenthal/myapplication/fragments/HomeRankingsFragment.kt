@@ -51,32 +51,27 @@ class HomeRankingsFragment : Fragment() {
         tracks = initTracks(view)
         albums = initAlbums()
 
-        (activity as AppCompatActivity).supportActionBar?.title =
-            Html.fromHtml("<font color=\"black\">" + getString(R.string.tab_rankings) + "</font>")
+        (activity as AppCompatActivity).supportActionBar?.title = Html.fromHtml("<font color=\"black\">" + getString(R.string.tab_rankings) + "</font>");
 
         // Switch entre titres et albums
         val tracksTextView: TextView = view.findViewById(R.id.tracks)
+        val albumsTextView: TextView = view.findViewById(R.id.albmums)
         tracksTextView.setOnClickListener(View.OnClickListener {
             it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
-            view.findViewById<TextView>(R.id.albmums).background =
+            albumsTextView.background =
                 ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
             setMostLovedTracks(view, tracks)
-            view.findViewById<TextView>(R.id.tracks)
-                .setTextColor(ContextCompat.getColor(view.context, R.color.black))
-            view.findViewById<TextView>(R.id.albmums)
-                .setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
+            tracksTextView.setTextColor(ContextCompat.getColor(view.context, R.color.black))
+            albumsTextView.setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
         })
 
-        val albumsTextView: TextView = view.findViewById(R.id.albmums)
         albumsTextView.setOnClickListener(View.OnClickListener {
             it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
-            view.findViewById<TextView>(R.id.tracks).background =
+            tracksTextView.background =
                 ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
             setMostLovedAlbums(view, albums)
-            view.findViewById<TextView>(R.id.albmums)
-                .setTextColor(ContextCompat.getColor(view.context, R.color.black))
-            view.findViewById<TextView>(R.id.tracks)
-                .setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
+            albumsTextView.setTextColor(ContextCompat.getColor(view.context, R.color.black))
+            tracksTextView.setTextColor(ContextCompat.getColor(view.context, R.color.home_light_grey))
         })
     }
 

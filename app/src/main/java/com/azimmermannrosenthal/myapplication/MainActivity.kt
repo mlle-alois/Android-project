@@ -1,7 +1,6 @@
 package com.azimmermannrosenthal.myapplication
 
 import android.os.Bundle
-import android.text.Html
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -13,10 +12,8 @@ import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
 
 class MainActivity : AppCompatActivity() {
-    private val client = OkHttpClient()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +26,6 @@ class MainActivity : AppCompatActivity() {
                 R.color.white
             )
         )
-
-        supportActionBar?.title = Html.fromHtml("<font color=\"red\">" + getString(R.string.app_name) + "</font>");
 
         executeCall()
 
