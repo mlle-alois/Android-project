@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.azimmermannrosenthal.myapplication.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFavoritesFragment: Fragment() {
 
@@ -27,7 +28,10 @@ class HomeFavoritesFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).supportActionBar?.show()
         (activity as AppCompatActivity).supportActionBar?.title = Html.fromHtml("<font color=\"black\">" + getString(R.string.tab_favorites) + "</font>");
+
+        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility = View.VISIBLE
 
         /*val product = ProductDetailsFragmentArgs.fromBundle(
             requireParentFragment().requireParentFragment().requireArguments()

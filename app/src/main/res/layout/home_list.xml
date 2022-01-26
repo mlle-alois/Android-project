@@ -59,7 +59,7 @@
         android:id="@+id/item_artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/home_light_grey"
+        android:textColor="@color/light_grey"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/item_image_card"
         app:layout_constraintStart_toStartOf="@id/guideline_vertical_start" />

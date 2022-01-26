@@ -37,27 +37,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun executeCall() {
 
-        // REGION MOST LOVED ALBUMS
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                val response = ApiClient.apiService.getMostLovedAlbums()
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as LovedAlbumList
-                    /*for(album: Album in content.albumList) {
-                        Log.d("INFO", album.toString())
-                    }*/
-                    //do something
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        // ENDREGION
-
         // REGION RESEARCH ARTIST
         MainScope().launch(Dispatchers.Main) {
             try {
@@ -104,27 +83,6 @@ class MainActivity : AppCompatActivity() {
         MainScope().launch(Dispatchers.Main) {
             try {
                 val response = ApiClient.apiService.getTop10TracksByArtistName("Céline Dion")
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as TrackList
-                    /*for(track: Track in content.trackList) {
-                        Log.d("INFO", track.toString())
-                    }*/
-                    //do something
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        // ENDREGION
-
-        // REGION GET TRACKS BY ALBUM ID
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                val response = ApiClient.apiService.getTracksByAlbumId("2109614")
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as TrackList

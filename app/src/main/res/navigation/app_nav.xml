@@ -7,6 +7,6 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.azimmermannrosenthal.myapplication.fragments.HomeFragment"
-        android:label="ProductDetailsFragment" >
+        android:label="HomeFragment" >
     </fragment>
 </navigation>

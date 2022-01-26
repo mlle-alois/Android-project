@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import com.azimmermannrosenthal.myapplication.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeSearchFragment : Fragment() {
 
@@ -36,7 +37,10 @@ class HomeSearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).supportActionBar?.show()
         (activity as AppCompatActivity).supportActionBar?.title = Html.fromHtml("<font color=\"black\">" + getString(R.string.to_research) + "</font>");
+
+        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility = View.VISIBLE
 
         /*val product = ProductDetailsFragmentArgs.fromBundle(
             requireParentFragment().requireParentFragment().requireArguments()

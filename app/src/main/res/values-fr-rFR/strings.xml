@@ -40,4 +40,6 @@
     <string name="tab_tracks">Titres</string>
     <string name="tab_albums">Albums</string>
     <string name="my_artists_and_albums">Mes artistes &amp; albums</string>
+    <string name="votes">%1$s votes</string>
+    <string name="songs">%1$s chansons</string>
 </resources>

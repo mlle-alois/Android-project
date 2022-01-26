@@ -38,7 +38,7 @@
             app:layout_constraintWidth_percent="0.5"
             android:text="@string/tab_albums"
             android:paddingBottom="3dp"
-            android:textColor="@color/home_light_grey"
+            android:textColor="@color/light_grey"
             android:textSize="15sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/guideline_vertical_start"
@@ -46,7 +46,7 @@
             />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/track_list"
+            android:id="@+id/item_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"

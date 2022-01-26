@@ -7,13 +7,29 @@
     <fragment
         android:id="@+id/tab_rankings"
         android:name="com.azimmermannrosenthal.myapplication.fragments.HomeRankingsFragment"
-        android:label="ProductDetailsSummaryFragment" />
+        android:label="HomeRankingsFragment" >
+        <action
+            android:id="@+id/action_tab_rankings_to_albumFragment"
+            app:destination="@id/albumFragment" />
+    </fragment>
     <fragment
         android:id="@+id/tab_search"
         android:name="com.azimmermannrosenthal.myapplication.fragments.HomeSearchFragment"
-        android:label="ProductDetailsNutritionFragment" />
+        android:label="HomeSearchFragment" />
     <fragment
         android:id="@+id/tab_favorites"
         android:name="com.azimmermannrosenthal.myapplication.fragments.HomeFavoritesFragment"
-        android:label="ProductDetailsNutritionalValuesFragment" />
+        android:label="HomeFavoritesFragment" />
+
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.AlbumFragment"
+        android:label="AlbumFragment" >
+        <argument
+            android:name="album"
+            app:argType="com.azimmermannrosenthal.myapplication.objects.Album" />
+        <action
+            android:id="@+id/action_albumFragment_to_tab_rankings"
+            app:destination="@id/tab_rankings" />
+    </fragment>
 </navigation>
