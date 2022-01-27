@@ -20,19 +20,9 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.setBackgroundDrawable(
-            ContextCompat.getDrawable(
-                this,
-                R.color.white
-            )
-        )
+        supportActionBar?.hide()
 
         executeCall()
-
-        /*supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, ProductDetailsFragment())
-            .commitAllowingStateLoss()*/
     }
 
     private fun executeCall() {

@@ -2,14 +2,19 @@ package com.azimmermannrosenthal.myapplication.fragments
 
 import android.os.Bundle
 import android.text.Html
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,9 +54,7 @@ class HomeRankingsFragment : Fragment() {
         tracks = initTracks(view)
         albums = initAlbums()
 
-        (activity as AppCompatActivity).supportActionBar?.show()
-        (activity as AppCompatActivity).supportActionBar?.title =
-            Html.fromHtml("<font color=\"black\">" + getString(R.string.tab_rankings) + "</font>")
+        (activity as AppCompatActivity).findViewById<TextView>(R.id.title).text = getString(R.string.tab_rankings)
 
         (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility = View.VISIBLE
 

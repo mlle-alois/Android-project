@@ -1,15 +1,15 @@
 package com.azimmermannrosenthal.myapplication.fragments
 
 import android.os.Bundle
-import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,10 +44,11 @@ class AlbumFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //cacher la navigation bar
-        (activity as AppCompatActivity).supportActionBar?.hide()
-        //cacher le menu
-        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility = View.GONE
+        //cacher le menu et le titre
+        (activity as AppCompatActivity).findViewById<TextView>(R.id.title).visibility =
+            GONE
+        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility =
+            GONE
 
         val album: Album = AlbumFragmentArgs.fromBundle(requireArguments()).album
 
@@ -58,17 +59,27 @@ class AlbumFragment : Fragment() {
         Picasso.get().load(album.strAlbumThumb)
             .into(view.findViewById<ImageView>(R.id.album_background_image))
         Picasso.get().load(album.strAlbumThumb).into(view.findViewById<ImageView>(R.id.album_image))
-        //TODO mise en favoris
+
         view.findViewById<TextView>(R.id.album_score).text = album.intScore
         view.findViewById<TextView>(R.id.album_votes).text =
             getString(R.string.votes, album.intScoreVotes)
         //TODO appliquer la description selon la bonne langue
         view.findViewById<TextView>(R.id.album_description).text = album.strDescriptionFR
 
+        //TODO mise en favoris
+        view.findViewById<View>(R.id.favorite_button).setOnClickListener {
+            val favorite_button_on: View = view.findViewById(R.id.favorite_button_on)
+            if (favorite_button_on.visibility == VISIBLE) {
+                favorite_button_on.visibility = GONE
+            } else {
+                favorite_button_on.visibility = VISIBLE
+            }
+        }
         // Fonctionnement bouton retour
-        view.findViewById<View>(R.id.return_button).setOnClickListener{
+        view.findViewById<View>(R.id.return_button).setOnClickListener {
             findNavController().navigate(
-            AlbumFragmentDirections.actionAlbumFragmentToTabRankings())
+                AlbumFragmentDirections.actionAlbumFragmentToTabRankings()
+            )
         }
     }
 

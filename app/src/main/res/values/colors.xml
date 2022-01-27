@@ -17,4 +17,6 @@
     <color name="icon_default">#E63E11</color>
     <color name="main_navigation_bg">#EBEBEB</color>
     <color name="bottom_bar_default">#EBEBEB</color>
+    <color name="text_shadow">#7F000000</color>
+    <color name="text_light_shadow">#FFFFFFFF</color>
 </resources>
