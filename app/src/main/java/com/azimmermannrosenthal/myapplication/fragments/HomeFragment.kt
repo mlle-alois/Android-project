@@ -29,9 +29,5 @@ class HomeFragment : Fragment() {
 
         val navHost = childFragmentManager.findFragmentById(R.id.home_nav_host) as NavHostFragment
         NavigationUI.setupWithNavController(home_nav, navHost.navController)
-
-        //récupération de l'argument product
-        //val product = ProductDetailsFragmentArgs.fromBundle(requireArguments()).product
-
     }
 }

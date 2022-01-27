@@ -13,11 +13,11 @@ data class Album(
     val intYearReleased: String,
     val strStyle: String,
     val strGenre: String,
+    val strDescription: String,
     val strDescriptionEN: String,
     val strDescriptionFR: String,
     val intLoved: String,
     val intScore: String,
     val intScoreVotes: String,
     val strAlbumThumb: String,
-    //TODO ajouter éventuels champs manquants / enlever ceux inutiles
 ) : Parcelable

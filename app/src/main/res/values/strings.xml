@@ -1,38 +1,5 @@
 <resources>
     <string name="app_name">Musical application</string>
-    <string name="product_title">%1$s</string>
-    <string name="product_mark">%1$s</string>
-    <string name="product_barcode">Bar code : %1$s</string>
-    <string name="product_quantity">Quantity : %1$s</string>
-    <string name="product_sold_in">Sold in : %1$s</string>
-    <string name="product_ingredients">Ingredients : %1$s</string>
-    <string name="product_allergenic_substances">Allergenic substances: %1$s</string>
-    <string name="product_additives">Additives: %1$s</string>
-    <string name="product_nutriscore">Nutriscore: %1$s</string>
-    <string name="product_calories">%1$s kCal/part</string>
-    <string name="nutritional_guidelines">Nutritional guidelines per 100g</string>
-    <string name="product_fat">%1$s%2$s of Fat / Lipids</string>
-    <string name="product_saturated_fatty_acids">%1$s%2$s of Saturated fatty acids</string>
-    <string name="product_sugars">%1$s%2$s of Sugars</string>
-    <string name="product_salt">%1$s%2$s of Salt</string>
-    <string name="nutrient_level_low">in low quantity</string>
-    <string name="nutrient_level_moderate">in moderate quantity</string>
-    <string name="nutrient_level_high">in high quantity</string>
-    <string name="per_100g">Per 100g</string>
-    <string name="per_portion">Per part</string>
-    <string name="energy">Energy</string>
-    <string name="fat">Fat</string>
-    <string name="with_saturated_fatty_acids">With saturated fatty acids</string>
-    <string name="carbohydrates">Carbohydrates</string>
-    <string name="with_sugars">With sugars</string>
-    <string name="dietary_fiber">Dietary fibers</string>
-    <string name="proteins">Proteins</string>
-    <string name="salt">Salt</string>
-    <string name="sodium">Sodium</string>
-    <string name="quantity">%1$s %2$s</string>
-    <string name="havent_scanned_anything">You haven\'t scanned anything yet !</string>
-    <string name="click_button_below">Click the button below to get started.</string>
-    <string name="scan_product">Scan a product</string>
     <string name="tab_rankings">Rankings</string>
     <string name="tab_research">Research</string>
     <string name="to_research">To research</string>
@@ -42,4 +9,6 @@
     <string name="my_artists_and_albums">My artists &amp; albums</string>
     <string name="votes">%1$s votes</string>
     <string name="songs">%1$s songs</string>
+    <string name="number_of_albums">Albums (%1$s)</string>
+    <string name="most_popular_tracks">Most popular titles</string>
 </resources>

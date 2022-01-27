@@ -18,6 +18,7 @@ import com.azimmermannrosenthal.myapplication.R
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
 import com.azimmermannrosenthal.myapplication.objects.Album
+import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
@@ -26,7 +27,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-class AlbumFragment : Fragment() {
+class ArtistFragment : Fragment() {
 
     private var tracks = mutableListOf<Track>()
 
@@ -36,7 +37,7 @@ class AlbumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-            R.layout.fragment_album,
+            R.layout.fragment_artist,
             container,
             false
         )
@@ -51,26 +52,26 @@ class AlbumFragment : Fragment() {
         (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility =
             GONE
 
-        val album: Album = AlbumFragmentArgs.fromBundle(requireArguments()).album
+        val artist: Artist = ArtistFragmentArgs.fromBundle(requireArguments()).artist
 
-        tracks = initTracks(view, album.idAlbum, view.findViewById(R.id.album_number_of_tracks))
+        /*tracks = initTracks(view, artist.idAlbum, view.findViewById(R.id.album_number_of_tracks))
 
-        view.findViewById<TextView>(R.id.album_artist).text = album.strArtist
-        view.findViewById<TextView>(R.id.album_title).text = album.strAlbum
-        Picasso.get().load(album.strAlbumThumb)
+        view.findViewById<TextView>(R.id.album_artist).text = artist.strArtist
+        view.findViewById<TextView>(R.id.album_title).text = artist.strAlbum
+        Picasso.get().load(artist.strAlbumThumb)
             .into(view.findViewById<ImageView>(R.id.album_background_image))
-        Picasso.get().load(album.strAlbumThumb).into(view.findViewById<ImageView>(R.id.album_image))
+        Picasso.get().load(artist.strAlbumThumb).into(view.findViewById<ImageView>(R.id.album_image))
 
-        view.findViewById<TextView>(R.id.album_score).text = album.intScore
+        view.findViewById<TextView>(R.id.album_score).text = artist.intScore
         view.findViewById<TextView>(R.id.album_votes).text =
-            getString(R.string.votes, album.intScoreVotes)
+            getString(R.string.votes, artist.intScoreVotes)
         if (Locale.getDefault().displayLanguage == "français") {
-            view.findViewById<TextView>(R.id.album_description).text = album.strDescriptionFR
+            view.findViewById<TextView>(R.id.album_description).text = artist.strDescriptionFR
         } else {
-            if (album.strDescriptionEN == null) {
-                view.findViewById<TextView>(R.id.album_description).text = album.strDescription
+            if (artist.strDescriptionEN == null) {
+                view.findViewById<TextView>(R.id.album_description).text = artist.strDescription
             } else {
-                view.findViewById<TextView>(R.id.album_description).text = album.strDescriptionEN
+                view.findViewById<TextView>(R.id.album_description).text = artist.strDescriptionEN
             }
         }
 
@@ -89,7 +90,7 @@ class AlbumFragment : Fragment() {
             findNavController().navigate(
                 AlbumFragmentDirections.actionAlbumFragmentToTabRankings()
             )
-        }
+        }*/
     }
 
     private fun initTracks(

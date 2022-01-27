@@ -1,29 +1,25 @@
 package com.azimmermannrosenthal.myapplication.fragments
 
 import android.os.Bundle
-import android.text.Html
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azimmermannrosenthal.myapplication.R
 import com.azimmermannrosenthal.myapplication.api.ApiClient
+import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedAlbumList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedTrackList
 import com.azimmermannrosenthal.myapplication.objects.Album
+import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
@@ -54,7 +50,9 @@ class HomeRankingsFragment : Fragment() {
         tracks = initTracks(view)
         albums = initAlbums()
 
-        (activity as AppCompatActivity).findViewById<TextView>(R.id.title).text = getString(R.string.tab_rankings)
+        val title = (activity as AppCompatActivity).findViewById<TextView>(R.id.title)
+        title.visibility = View.VISIBLE
+        title.text = getString(R.string.tab_rankings)
 
         (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility = View.VISIBLE
 
@@ -156,13 +154,25 @@ class HomeRankingsFragment : Fragment() {
                     tracks,
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
-                            Log.d("ITEM_CLICKED", "Position $position")
-                            //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
-                            /*findNavController().navigate(
-                                ProductsListFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
-                                    products[position]
-                                )
-                            )*/
+                            MainScope().launch(Dispatchers.Main) {
+                                try {
+                                    val response = ApiClient.apiService.searchArtistByName(tracks[position].strArtist)
+
+                                    if (response.isSuccessful && response.body() != null) {
+                                        val content = response.body() as FoundedArtistList
+                                        findNavController().navigate(
+                                            HomeRankingsFragmentDirections.actionTabRankingsToArtistFragment(
+                                                content.artistList[0]
+                                            )
+                                        )
+                                    } else {
+                                        Log.d("ERROR", response.message())
+                                    }
+
+                                } catch (e: Exception) {
+                                    Log.d("ERROR CATCH", e.message.toString())
+                                }
+                            }
                         }
                     }
                 )
@@ -183,7 +193,6 @@ class HomeRankingsFragment : Fragment() {
                     albums,
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
-                            Log.d("ITEM_CLICKED", "Position $position")
                             findNavController().navigate(
                                 HomeRankingsFragmentDirections.actionTabRankingsToAlbumFragment(
                                     albums[position]
@@ -215,10 +224,10 @@ class HomeRankingsFragment : Fragment() {
 
             val track = tracks[position]
 
-            listItemCell.item_number.text = (position + 1).toString()
-            Picasso.get().load(track.strTrackThumb).into(listItemCell.item_image)
-            listItemCell.item_title.text = track.strTrack
-            listItemCell.item_artist.text = track.strArtist
+            listItemCell.itemNumber.text = (position + 1).toString()
+            Picasso.get().load(track.strTrackThumb).into(listItemCell.itemImage)
+            listItemCell.itemTitle.text = track.strTrack
+            listItemCell.itemArtist.text = track.strArtist
 
             listItemCell.itemView.setOnClickListener {
                 listener.onItemClicked(position)
@@ -233,10 +242,10 @@ class HomeRankingsFragment : Fragment() {
 
     class ListItemCell(v: View) : RecyclerView.ViewHolder(v) {
 
-        val item_number: TextView = v.findViewById(R.id.item_number)
-        val item_image: ImageView = v.findViewById(R.id.item_image)
-        val item_title: TextView = v.findViewById(R.id.item_title)
-        val item_artist: TextView = v.findViewById(R.id.item_artist)
+        val itemNumber: TextView = v.findViewById(R.id.item_number)
+        val itemImage: ImageView = v.findViewById(R.id.item_image)
+        val itemTitle: TextView = v.findViewById(R.id.item_title)
+        val itemArtist: TextView = v.findViewById(R.id.item_artist)
 
     }
 
@@ -256,10 +265,10 @@ class HomeRankingsFragment : Fragment() {
 
             val track = albums[position]
 
-            listItemCell.item_number.text = (position + 1).toString()
-            Picasso.get().load(track.strAlbumThumb).into(listItemCell.item_image)
-            listItemCell.item_title.text = track.strAlbum
-            listItemCell.item_artist.text = track.strArtist
+            listItemCell.itemNumber.text = (position + 1).toString()
+            Picasso.get().load(track.strAlbumThumb).into(listItemCell.itemImage)
+            listItemCell.itemTitle.text = track.strAlbum
+            listItemCell.itemArtist.text = track.strArtist
 
             listItemCell.itemView.setOnClickListener {
                 listener.onItemClicked(position)

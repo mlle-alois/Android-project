@@ -15,82 +15,11 @@ import com.azimmermannrosenthal.myapplication.*
 
 class ProductsListFragment : Fragment() { // ne JAMAIS passer de paramètres au constructeur
 
-    var products = listOf<Product>();
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        //TODO enlever les produits en commentaire pour voir la liste ou les remettre pour voir la page vide
-        products = listOf<Product>(Product(
-                "Petits pois et carottes",
-                "Cassegrain",
-                "3083680085304",
-                Nutriscore.A,
-                "static.openfoodfacts.org/images/products/308/368/008/5304/front_fr.7.400.jpg",
-                "400g (280g net égoutté)",
-                "France, Japon, Suisse",
-                "Petits pois 66%, eau, garniture 2,8% (salade, oignon grelot), sucre, sel, arôme naturel",
-                "Aucune",
-                "Aucun",
-                "234 kCal/part",
-                NutritionFacts(
-                    NutritionFactsItem("kj", 293.0, 0.0),
-                    NutritionFactsItem("g", 0.8, 0.0),
-                    NutritionFactsItem("g", 0.1, 0.0),
-                    NutritionFactsItem("g", 8.4, 0.0),
-                    NutritionFactsItem("g", 5.2, 0.0),
-                    NutritionFactsItem("g", 5.2, 0.0),
-                    NutritionFactsItem("g", 4.8, 0.0),
-                    NutritionFactsItem("g", 0.75, 0.0),
-                    NutritionFactsItem("g", 0.295, 0.0)
-                )
-            ),
-            Product(
-                "Salade au poulet", "Gerblé", "2562159856301",
-                Nutriscore.A, "", "400g", "France, Belgique, Espagne",
-                "Salade roquette, poulet mariné (20%), tomates confites, sauce vinaigrette (vinaigre, huile), sel, poivre",
-                "Tomates", "Aucun", "215 kCal/part",
-                NutritionFacts(
-                    NutritionFactsItem("kj", 293.0, 0.0),
-                    NutritionFactsItem("g", 0.8, 0.0),
-                    NutritionFactsItem("g", 0.1, 0.0),
-                    NutritionFactsItem("g", 8.4, 0.0),
-                    NutritionFactsItem("g", 5.2, 0.0),
-                    NutritionFactsItem("g", 5.2, 0.0),
-                    NutritionFactsItem("g", 4.8, 0.0),
-                    NutritionFactsItem("g", 1.1, 0.0),
-                    NutritionFactsItem("g", 0.295, 0.0)
-                )
-            ),
-            Product(
-                "Hachi parmentier de boeuf", "Findus", "5489301524782",
-                Nutriscore.C, "", "1000g", "France",
-                "Pommes de terre, haché de boeuf (15% MG), huile, sel, poivre",
-                "Aucune", "Aucun", "356",
-                NutritionFacts(
-                    NutritionFactsItem("kj", 293.0, 0.0),
-                    NutritionFactsItem("g", 15.2, 0.0),
-                    NutritionFactsItem("g", 0.1, 0.0),
-                    NutritionFactsItem("g", 8.4, 0.0),
-                    NutritionFactsItem("g", 5.2, 0.0),
-                    NutritionFactsItem("g", 5.2, 0.0),
-                    NutritionFactsItem("g", 4.8, 0.0),
-                    NutritionFactsItem("g", 0.75, 0.0),
-                    NutritionFactsItem("g", 0.295, 0.0)
-                )
-            )
-        );
-
-        if(products.isNotEmpty()) {
-            return inflater.inflate(
-                R.layout.products_list,
-                container,
-                false
-            )
-        }
         return inflater.inflate(
             R.layout.empty_list,
             container,
@@ -149,7 +78,6 @@ class ProductsListFragment : Fragment() { // ne JAMAIS passer de paramètres au 
 
 //configuration de la liste de produits
 class ProductAdapter(
-    val products: List<Product>,
     val context: Context,
     val listener: ItemClickListener
 ) : RecyclerView.Adapter<HomeRankingsFragment.ListItemCell>() {
@@ -162,8 +90,6 @@ class ProductAdapter(
     }
 
     override fun onBindViewHolder(listItemCell: HomeRankingsFragment.ListItemCell, position: Int) {
-
-        val product = products.get(position)
 
         /*listTrackCell.product_title.text =
             context.getString(R.string.product_title, product.name)
@@ -179,7 +105,7 @@ class ProductAdapter(
     }
 
     override fun getItemCount(): Int {
-        return products.size
+        return 0
     }
 
 }

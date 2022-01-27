@@ -1,38 +1,5 @@
 <resources>
     <string name="app_name">Application Musicale</string>
-    <string name="product_title">%1$s</string>
-    <string name="product_mark">%1$s</string>
-    <string name="product_barcode">Code barres : %1$s</string>
-    <string name="product_quantity">Quantité : %1$s</string>
-    <string name="product_sold_in">Vendu en : %1$s</string>
-    <string name="product_ingredients">Ingrédients : %1$s</string>
-    <string name="product_allergenic_substances">Substances allergènes : %1$s</string>
-    <string name="product_additives">Additifs : %1$s</string>
-    <string name="product_nutriscore">Nutriscore: %1$s</string>
-    <string name="product_calories">%1$s kCal/part</string>
-    <string name="nutritional_guidelines">Repères nutritionnels pour 100g</string>
-    <string name="product_fat">%1$s%2$s de Matières grasses / Lipides</string>
-    <string name="product_saturated_fatty_acids">%1$s%2$s d\'Acides gras saturés</string>
-    <string name="product_sugars">%1$s%2$s de Sucres</string>
-    <string name="product_salt">%1$s%2$s de Sel</string>
-    <string name="nutrient_level_low">en faible quantité</string>
-    <string name="nutrient_level_moderate">en quantité modérée</string>
-    <string name="nutrient_level_high">en grande quantité</string>
-    <string name="per_100g">Pour 100g</string>
-    <string name="per_portion">Par part</string>
-    <string name="energy">Energie</string>
-    <string name="fat">Matières grasses</string>
-    <string name="with_saturated_fatty_acids">Dont acides gras saturés</string>
-    <string name="carbohydrates">Glucides</string>
-    <string name="with_sugars">Dont sucres</string>
-    <string name="dietary_fiber">Fibres alimentaires</string>
-    <string name="proteins">Protéines</string>
-    <string name="salt">Sel</string>
-    <string name="sodium">Sodium</string>
-    <string name="quantity">%1$s %2$s</string>
-    <string name="havent_scanned_anything">Vous n\'avez encore rien scanné !</string>
-    <string name="click_button_below">Cliquez sur le bouton ci-dessous pour commencer.</string>
-    <string name="scan_product">Scanner un produit</string>
     <string name="tab_rankings">Classements</string>
     <string name="tab_research">Recherche</string>
     <string name="to_research">Rechercher</string>
@@ -42,4 +9,6 @@
     <string name="my_artists_and_albums">Mes artistes &amp; albums</string>
     <string name="votes">%1$s votes</string>
     <string name="songs">%1$s chansons</string>
+    <string name="number_of_albums">Albums (%1$s)</string>
+    <string name="most_popular_tracks">Titres les plus appréciés</string>
 </resources>

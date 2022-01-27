@@ -12,5 +12,4 @@ data class Artist(
     val strMood: String,
     val strBiographyEN: String,
     val strBiographyFR: String,
-    //TODO ajouter éventuels champs manquants / enlever ceux inutiles
 ) : Parcelable
