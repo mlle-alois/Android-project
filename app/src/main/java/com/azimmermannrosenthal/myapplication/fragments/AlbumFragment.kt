@@ -14,9 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.azimmermannrosenthal.myapplication.R
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
+import com.azimmermannrosenthal.myapplication.database.AlbumTable
+import com.azimmermannrosenthal.myapplication.database.AppDatabase
 import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -46,10 +49,9 @@ class AlbumFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //cacher le menu et le titre
-        (activity as AppCompatActivity).findViewById<TextView>(R.id.title).visibility =
-            GONE
-        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility =
-            GONE
+        val activity = activity as AppCompatActivity
+        activity.findViewById<TextView>(R.id.title).visibility = GONE
+        activity.findViewById<BottomNavigationView>(R.id.home_nav).visibility = GONE
 
         val album: Album = AlbumFragmentArgs.fromBundle(requireArguments()).album
 
@@ -74,23 +76,44 @@ class AlbumFragment : Fragment() {
             }
         }
 
-        //TODO mise en favoris
+        val db = Room.databaseBuilder(
+            activity.applicationContext,
+            AppDatabase::class.java, "musical-application"
+        ).allowMainThreadQueries()
+            .build()
+
+        val userDao = db.albumDao()
+        val albums: List<AlbumTable> = userDao.getAll()
+        val albumsIds: MutableList<String> = mutableListOf()
+        for (albumTable: AlbumTable in albums) {
+            albumsIds.add(albumTable.albumId)
+        }
+
+        val favoriteButtonOn: View = view.findViewById(R.id.favorite_button_on)
+
+        if (albumsIds.contains(album.idAlbum)) {
+            favoriteButtonOn.visibility = VISIBLE
+        } else {
+            favoriteButtonOn.visibility = GONE
+        }
+
         view.findViewById<View>(R.id.favorite_button).setOnClickListener {
-            val favoriteButtonOn: View = view.findViewById(R.id.favorite_button_on)
-            if (favoriteButtonOn.visibility == VISIBLE) {
+            if (albumsIds.contains(album.idAlbum)) {
+                userDao.delete(AlbumTable(album.idAlbum))
                 favoriteButtonOn.visibility = GONE
             } else {
+                userDao.insert(AlbumTable(album.idAlbum))
                 favoriteButtonOn.visibility = VISIBLE
             }
         }
 
-        // Fonctionnement bouton retour
         view.findViewById<View>(R.id.return_button).setOnClickListener {
             findNavController().navigate(
                 AlbumFragmentDirections.actionAlbumFragmentToTabRankings()
             )
         }
     }
+
 
     private fun initTracks(
         view: View,
@@ -130,9 +153,9 @@ class AlbumFragment : Fragment() {
 
         if (tracks.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.track_list).run {
-                adapter = TrackOfAlbumAdapter(
+                adapter = ArtistFragment.TrackOfAlbumAdapter(
                     tracks,
-                    listener = object : TrackClickListener {
+                    listener = object : ArtistFragment.TrackClickListener {
                         override fun onItemClicked(position: Int) {
                             Log.d("ITEM_CLICKED", "Position $position")
                             //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
@@ -153,17 +176,20 @@ class AlbumFragment : Fragment() {
 
     class TrackOfAlbumAdapter(
         private val tracks: List<Track>,
-        val listener: TrackClickListener
-    ) : RecyclerView.Adapter<ListTrackCell>() {
+        val listener: ArtistFragment.TrackClickListener
+    ) : RecyclerView.Adapter<ArtistFragment.ListTrackCell>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListTrackCell {
-            return ListTrackCell(
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): ArtistFragment.ListTrackCell {
+            return ArtistFragment.ListTrackCell(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.album_track_list, parent, false)
             )
         }
 
-        override fun onBindViewHolder(listTrackCell: ListTrackCell, position: Int) {
+        override fun onBindViewHolder(listTrackCell: ArtistFragment.ListTrackCell, position: Int) {
 
             val track = tracks[position]
 

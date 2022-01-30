@@ -54,7 +54,8 @@ class HomeRankingsFragment : Fragment() {
         title.visibility = View.VISIBLE
         title.text = getString(R.string.tab_rankings)
 
-        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility = View.VISIBLE
+        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility =
+            View.VISIBLE
 
         // Switch entre titres et albums
         val tracksTextView: TextView = view.findViewById(R.id.tracks)
@@ -156,7 +157,8 @@ class HomeRankingsFragment : Fragment() {
                         override fun onItemClicked(position: Int) {
                             MainScope().launch(Dispatchers.Main) {
                                 try {
-                                    val response = ApiClient.apiService.searchArtistByName(tracks[position].strArtist)
+                                    val response =
+                                        ApiClient.apiService.searchArtistByName(tracks[position].strArtist)
 
                                     if (response.isSuccessful && response.body() != null) {
                                         val content = response.body() as FoundedArtistList
