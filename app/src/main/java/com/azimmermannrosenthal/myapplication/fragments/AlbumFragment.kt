@@ -48,7 +48,6 @@ class AlbumFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //cacher le menu et le titre
         val activity = activity as AppCompatActivity
         activity.findViewById<TextView>(R.id.title).visibility = GONE
         activity.findViewById<BottomNavigationView>(R.id.home_nav).visibility = GONE
@@ -185,7 +184,7 @@ class AlbumFragment : Fragment() {
         ): ArtistFragment.ListTrackCell {
             return ArtistFragment.ListTrackCell(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.album_track_list, parent, false)
+                    .inflate(R.layout.list_album_track, parent, false)
             )
         }
 

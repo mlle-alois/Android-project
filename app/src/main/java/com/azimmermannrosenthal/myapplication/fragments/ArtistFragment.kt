@@ -5,23 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azimmermannrosenthal.myapplication.R
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
-import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -46,46 +41,64 @@ class ArtistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //cacher le menu et le titre
-        (activity as AppCompatActivity).findViewById<TextView>(R.id.title).visibility =
-            GONE
-        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility =
-            GONE
+        val activity = activity as AppCompatActivity
+        activity.findViewById<TextView>(R.id.title).visibility = GONE
+        activity.findViewById<BottomNavigationView>(R.id.home_nav).visibility = GONE
 
         val artist: Artist = ArtistFragmentArgs.fromBundle(requireArguments()).artist
 
-        /*tracks = initTracks(view, artist.idAlbum, view.findViewById(R.id.album_number_of_tracks))
+        /*tracks = initTracks(view, album.idAlbum, view.findViewById(R.id.album_number_of_tracks))
 
-        view.findViewById<TextView>(R.id.album_artist).text = artist.strArtist
-        view.findViewById<TextView>(R.id.album_title).text = artist.strAlbum
-        Picasso.get().load(artist.strAlbumThumb)
+        view.findViewById<TextView>(R.id.album_artist).text = album.strArtist
+        view.findViewById<TextView>(R.id.album_title).text = album.strAlbum
+        Picasso.get().load(album.strAlbumThumb)
             .into(view.findViewById<ImageView>(R.id.album_background_image))
-        Picasso.get().load(artist.strAlbumThumb).into(view.findViewById<ImageView>(R.id.album_image))
+        Picasso.get().load(album.strAlbumThumb).into(view.findViewById<ImageView>(R.id.album_image))
 
-        view.findViewById<TextView>(R.id.album_score).text = artist.intScore
+        view.findViewById<TextView>(R.id.album_score).text = album.intScore
         view.findViewById<TextView>(R.id.album_votes).text =
-            getString(R.string.votes, artist.intScoreVotes)
+            getString(R.string.votes, album.intScoreVotes)
         if (Locale.getDefault().displayLanguage == "français") {
-            view.findViewById<TextView>(R.id.album_description).text = artist.strDescriptionFR
+            view.findViewById<TextView>(R.id.album_description).text = album.strDescriptionFR
         } else {
-            if (artist.strDescriptionEN == null) {
-                view.findViewById<TextView>(R.id.album_description).text = artist.strDescription
+            if (album.strDescriptionEN == null) {
+                view.findViewById<TextView>(R.id.album_description).text = album.strDescription
             } else {
-                view.findViewById<TextView>(R.id.album_description).text = artist.strDescriptionEN
+                view.findViewById<TextView>(R.id.album_description).text = album.strDescriptionEN
             }
         }
 
-        //TODO mise en favoris
+        val db = Room.databaseBuilder(
+            activity.applicationContext,
+            AppDatabase::class.java, "musical-application"
+        ).allowMainThreadQueries()
+            .build()
+
+        val userDao = db.albumDao()
+        val albums: List<AlbumTable> = userDao.getAll()
+        val albumsIds: MutableList<String> = mutableListOf()
+        for (albumTable: AlbumTable in albums) {
+            albumsIds.add(albumTable.albumId)
+        }
+
+        val favoriteButtonOn: View = view.findViewById(R.id.favorite_button_on)
+
+        if (albumsIds.contains(album.idAlbum)) {
+            favoriteButtonOn.visibility = VISIBLE
+        } else {
+            favoriteButtonOn.visibility = GONE
+        }
+
         view.findViewById<View>(R.id.favorite_button).setOnClickListener {
-            val favoriteButtonOn: View = view.findViewById(R.id.favorite_button_on)
-            if (favoriteButtonOn.visibility == VISIBLE) {
+            if (albumsIds.contains(album.idAlbum)) {
+                userDao.delete(AlbumTable(album.idAlbum))
                 favoriteButtonOn.visibility = GONE
             } else {
+                userDao.insert(AlbumTable(album.idAlbum))
                 favoriteButtonOn.visibility = VISIBLE
             }
         }
 
-        // Fonctionnement bouton retour
         view.findViewById<View>(R.id.return_button).setOnClickListener {
             findNavController().navigate(
                 AlbumFragmentDirections.actionAlbumFragmentToTabRankings()
@@ -160,7 +173,7 @@ class ArtistFragment : Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListTrackCell {
             return ListTrackCell(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.album_track_list, parent, false)
+                    .inflate(R.layout.list_album_track, parent, false)
             )
         }
 

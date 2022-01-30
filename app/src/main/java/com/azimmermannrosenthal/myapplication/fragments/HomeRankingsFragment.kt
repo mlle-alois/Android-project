@@ -19,7 +19,6 @@ import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArti
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedAlbumList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedTrackList
 import com.azimmermannrosenthal.myapplication.objects.Album
-import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
@@ -218,7 +217,7 @@ class HomeRankingsFragment : Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemCell {
             return ListItemCell(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.home_list, parent, false)
+                    .inflate(R.layout.list_home, parent, false)
             )
         }
 
@@ -259,7 +258,7 @@ class HomeRankingsFragment : Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemCell {
             return ListItemCell(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.home_list, parent, false)
+                    .inflate(R.layout.list_home, parent, false)
             )
         }
 
