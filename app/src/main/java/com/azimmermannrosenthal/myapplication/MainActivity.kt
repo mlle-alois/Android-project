@@ -49,27 +49,6 @@ class MainActivity : AppCompatActivity() {
         }
         // ENDREGION
 
-        // REGION GET ALBUMS BY ARTIST ID
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                val response = ApiClient.apiService.getAlbumsByArtistId("111239")
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as AlbumList
-                    /*for(album: Album in content.albumList) {
-                        Log.d("INFO", album.toString())
-                    }*/
-                    //do something
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        // ENDREGION
-
         // REGION GET TOP 10 TRACKS BY ARTIST NAME
         MainScope().launch(Dispatchers.Main) {
             try {

@@ -6,5 +6,5 @@ import androidx.room.PrimaryKey
 @Entity
 data class ArtistTable(
     @PrimaryKey
-    val albumId: String
+    val artistId: String
 )

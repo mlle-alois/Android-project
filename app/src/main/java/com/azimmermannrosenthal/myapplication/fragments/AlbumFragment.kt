@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.azimmermannrosenthal.myapplication.ItemClickListener
 import com.azimmermannrosenthal.myapplication.R
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
@@ -79,6 +80,7 @@ class AlbumFragment : Fragment() {
             activity.applicationContext,
             AppDatabase::class.java, "musical-application"
         ).allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
             .build()
 
         val userDao = db.albumDao()
@@ -152,9 +154,9 @@ class AlbumFragment : Fragment() {
 
         if (tracks.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.track_list).run {
-                adapter = ArtistFragment.TrackOfAlbumAdapter(
+                adapter = TrackOfAlbumAdapter(
                     tracks,
-                    listener = object : ArtistFragment.TrackClickListener {
+                    listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
                             Log.d("ITEM_CLICKED", "Position $position")
                             //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
@@ -175,20 +177,20 @@ class AlbumFragment : Fragment() {
 
     class TrackOfAlbumAdapter(
         private val tracks: List<Track>,
-        val listener: ArtistFragment.TrackClickListener
-    ) : RecyclerView.Adapter<ArtistFragment.ListTrackCell>() {
+        val listener: ItemClickListener
+    ) : RecyclerView.Adapter<ListTrackCell>() {
 
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-        ): ArtistFragment.ListTrackCell {
-            return ArtistFragment.ListTrackCell(
+        ): ListTrackCell {
+            return ListTrackCell(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.list_album_track, parent, false)
+                    .inflate(R.layout.list_simple_track, parent, false)
             )
         }
 
-        override fun onBindViewHolder(listTrackCell: ArtistFragment.ListTrackCell, position: Int) {
+        override fun onBindViewHolder(listTrackCell: ListTrackCell, position: Int) {
 
             val track = tracks[position]
 
@@ -211,9 +213,5 @@ class AlbumFragment : Fragment() {
         val track_number = v.findViewById<TextView>(R.id.track_number)
         val track_title = v.findViewById<TextView>(R.id.track_title)
 
-    }
-
-    interface TrackClickListener {
-        fun onItemClicked(position: Int)
     }
 }

@@ -13,8 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.azimmermannrosenthal.myapplication.ItemClickListener
 import com.azimmermannrosenthal.myapplication.R
+import com.azimmermannrosenthal.myapplication.TrackClickListener
 import com.azimmermannrosenthal.myapplication.api.ApiClient
+import com.azimmermannrosenthal.myapplication.api.recuperation_lists.AlbumList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedAlbumList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedTrackList
@@ -152,8 +155,36 @@ class HomeRankingsFragment : Fragment() {
             view.findViewById<RecyclerView>(R.id.item_list).run {
                 adapter = TrackAdapter(
                     tracks,
-                    listener = object : ItemClickListener {
-                        override fun onItemClicked(position: Int) {
+                    listener = object : TrackClickListener {
+                        override fun onTrackClicked(position: Int) {
+                            Log.d("INFO", position.toString())
+                            //TODO
+                        }
+
+                        override fun onAlbumClicked(position: Int) {
+                            MainScope().launch(Dispatchers.Main) {
+                                try {
+                                    val response =
+                                        ApiClient.apiService.getAlbumsById(tracks[position].idAlbum)
+
+                                    if (response.isSuccessful && response.body() != null) {
+                                        val content = response.body() as AlbumList
+                                        findNavController().navigate(
+                                            HomeRankingsFragmentDirections.actionTabRankingsToAlbumFragment(
+                                                content.albumList[0]
+                                            )
+                                        )
+                                    } else {
+                                        Log.d("ERROR", response.message())
+                                    }
+
+                                } catch (e: Exception) {
+                                    Log.d("ERROR CATCH", e.message.toString())
+                                }
+                            }
+                        }
+
+                        override fun onArtistClicked(position: Int) {
                             MainScope().launch(Dispatchers.Main) {
                                 try {
                                     val response =
@@ -211,7 +242,7 @@ class HomeRankingsFragment : Fragment() {
 
     class TrackAdapter(
         private val tracks: List<Track>,
-        val listener: ItemClickListener
+        val listener: TrackClickListener
     ) : RecyclerView.Adapter<ListItemCell>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemCell {
@@ -230,8 +261,14 @@ class HomeRankingsFragment : Fragment() {
             listItemCell.itemTitle.text = track.strTrack
             listItemCell.itemArtist.text = track.strArtist
 
+            listItemCell.itemArtist.setOnClickListener {
+                listener.onArtistClicked(position)
+            }
+            listItemCell.itemImage.setOnClickListener {
+                listener.onAlbumClicked(position)
+            }
             listItemCell.itemView.setOnClickListener {
-                listener.onItemClicked(position)
+                listener.onTrackClicked(position)
             }
         }
 
@@ -279,10 +316,5 @@ class HomeRankingsFragment : Fragment() {
         override fun getItemCount(): Int {
             return albums.size
         }
-
-    }
-
-    interface ItemClickListener {
-        fun onItemClicked(position: Int)
     }
 }
