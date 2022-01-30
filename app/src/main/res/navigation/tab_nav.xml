@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_albumFragment_to_tab_rankings"
             app:destination="@id/tab_rankings" />
+        <action
+            android:id="@+id/action_albumFragment_to_artistFragment"
+            app:destination="@id/artistFragment" />
     </fragment>
 
     <fragment
@@ -38,5 +41,8 @@
         <action
             android:id="@+id/action_artistFragment_to_tab_rankings"
             app:destination="@id/tab_rankings" />
+        <action
+            android:id="@+id/action_artistFragment_to_albumFragment"
+            app:destination="@id/albumFragment" />
     </fragment>
 </navigation>
