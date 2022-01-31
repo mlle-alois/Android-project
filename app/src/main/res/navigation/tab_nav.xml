@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/tab_search"
-        android:name="com.azimmermannrosenthal.myapplication.fragments.ResearchFragment"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.HomeSearchFragment"
         android:label="HomeSearchFragment" />
     <fragment
         android:id="@+id/tab_favorites"
