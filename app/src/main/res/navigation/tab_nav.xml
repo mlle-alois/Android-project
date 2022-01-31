@@ -15,6 +15,14 @@
             android:id="@+id/action_tab_rankings_to_artistFragment"
             app:destination="@id/artistFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/tab_search"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.ResearchFragment"
+        android:label="HomeSearchFragment" />
+    <fragment
+        android:id="@+id/tab_favorites"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.HomeFavoritesFragment"
+        android:label="HomeFavoritesFragment" />
 
     <fragment
         android:id="@+id/albumFragment"
