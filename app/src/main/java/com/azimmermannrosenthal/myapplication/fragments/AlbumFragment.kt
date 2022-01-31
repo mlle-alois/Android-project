@@ -18,10 +18,12 @@ import androidx.room.Room
 import com.azimmermannrosenthal.myapplication.ItemClickListener
 import com.azimmermannrosenthal.myapplication.R
 import com.azimmermannrosenthal.myapplication.api.ApiClient
+import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
 import com.azimmermannrosenthal.myapplication.database.AlbumTable
 import com.azimmermannrosenthal.myapplication.database.AppDatabase
 import com.azimmermannrosenthal.myapplication.objects.Album
+import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
@@ -105,6 +107,28 @@ class AlbumFragment : Fragment() {
             } else {
                 userDao.insert(AlbumTable(album.idAlbum))
                 favoriteButtonOn.visibility = VISIBLE
+            }
+        }
+
+        view.findViewById<View>(R.id.album_artist).setOnClickListener {
+            MainScope().launch(Dispatchers.Main) {
+                try {
+                    //TODO barre de chargement
+                    //TODO rassembler ce code dans une classe spéciale API ?
+                    val response = ApiClient.apiService.searchArtistByName(album.strArtist)
+
+                    if (response.isSuccessful && response.body() != null) {
+                        val content = response.body() as FoundedArtistList
+                        findNavController().navigate(
+                            AlbumFragmentDirections.actionAlbumFragmentToArtistFragment(content.artistList[0])
+                        )
+                    } else {
+                        Log.d("ERROR", response.message())
+                    }
+                    //TODO permettre de relancer la requête en cas d'erreur
+                } catch (e: Exception) {
+                    Log.d("ERROR CATCH", e.message.toString())
+                }
             }
         }
 

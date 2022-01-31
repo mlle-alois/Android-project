@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -104,11 +105,11 @@ class ArtistFragment : Fragment() {
             }
         }
 
-        /*view.findViewById<View>(R.id.return_button).setOnClickListener {
+        view.findViewById<View>(R.id.return_button).setOnClickListener {
             findNavController().navigate(
-                AlbumFragmentDirections.actionAlbumFragmentToTabRankings()
+                ArtistFragmentDirections.actionArtistFragmentToTabRankings()
             )
-        }*/
+        }
     }
 
     private fun initAlbums(
@@ -184,13 +185,11 @@ class ArtistFragment : Fragment() {
                     albums,
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
-                            Log.d("ITEM_CLICKED", "Position $position")
-                            //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
-                            /*findNavController().navigate(
-                                ProductsListFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
-                                    products[position]
+                            findNavController().navigate(
+                                ArtistFragmentDirections.actionArtistFragmentToAlbumFragment(
+                                    albums[position]
                                 )
-                            )*/
+                            )
                         }
                     }
                 )

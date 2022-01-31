@@ -36,7 +36,7 @@
             android:id="@+id/album_artist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_regular"
+            android:fontFamily="@font/sf_pro_display_bold"
             android:shadowColor="@color/text_shadow"
             android:shadowDx="1"
             android:shadowDy="1"
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/sf_pro_text_regular"
+            android:fontFamily="@font/sf_pro_display_heavy"
             android:shadowColor="@color/text_shadow"
             android:shadowDx="1"
             android:shadowDy="1"
@@ -216,7 +216,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:fontFamily="@font/sf_pro_text_regular"
+            android:fontFamily="@font/sf_pro_display_heavy"
             android:text="@string/tab_tracks"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -227,9 +227,10 @@
             android:id="@+id/track_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="36dp"
             android:layout_weight="1"
             app:layout_constraintTop_toBottomOf="@id/tracks"
-            tools:layout_editor_absoluteX="16dp">
+            tools:layout_editor_absoluteX="0dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
