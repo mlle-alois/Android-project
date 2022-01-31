@@ -1,307 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp"
-    android:stretchColumns="1, 3"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <TableRow
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <TextView
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_vertical_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:height="40dp"/>
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="10dp" />
 
-        <TextView
-            android:id="@+id/per_100g"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_second_vertical_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="10dp" />
+
+
+        <EditText
+            android:id="@+id/plain_text_input"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:hint="@string/tab_research"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:inputType="text"
+            android:fontFamily="@font/sf_pro_text_regular"
+            app:layout_constraintTop_toTopOf="@id/guideline_vertical_start"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_vertical_start" />
+
+
+
+
+
+        <TextView
+            android:id="@+id/artists"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:layout_gravity="center"/>
+            android:layout_marginStart="15dp"
+            android:text="@string/artists"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:layout_marginTop="30dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_second_vertical_start"
+            app:layout_constraintTop_toBottomOf="@id/plain_text_input"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/artist_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@id/artists"/>
 
         <TextView
-            android:id="@+id/per_portion"
+            android:id="@+id/album_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="24sp"
             android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textSize="15sp"/>
-    </TableRow>
+            android:layout_marginStart="15dp"
+            android:text="@string/most_popular_tracks"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@id/artist_list"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/track_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintTop_toBottomOf="@id/album_list"/>
 
-        <TextView
-            android:id="@+id/energy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:height="30dp"/>
 
-        <TextView
-            android:id="@+id/energy_quantity_per_100g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/energy_quantity_per_portion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:textSize="15sp"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/fat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:height="30dp"/>
-
-        <TextView
-            android:id="@+id/fat_quantity_per_100g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/fat_quantity_per_portion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/with_saturated_fatty_acids"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:height="30dp"/>
-
-        <TextView
-            android:id="@+id/with_saturated_fatty_acids_quantity_per_100g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/with_saturated_fatty_acids_quantity_per_portion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/carbohydrates"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:height="30dp"/>
-
-        <TextView
-            android:id="@+id/carbohydrates_quantity_per_100g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/carbohydrates_quantity_per_portion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/with_sugars"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:height="30dp"/>
-
-        <TextView
-            android:id="@+id/with_sugars_quantity_per_100g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/with_sugars_quantity_per_portion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/dietary_fiber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:height="30dp"/>
-
-        <TextView
-            android:id="@+id/dietary_fiber_quantity_per_100g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"/>
-
-        <TextView
-            android:id="@+id/dietary_fiber_quantity_per_portion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/proteins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:height="30dp"/>
-
-        <TextView
-            android:id="@+id/proteins_quantity_per_100g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/proteins_quantity_per_portion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/salt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:height="30dp"/>
-
-        <TextView
-            android:id="@+id/salt_quantity_per_100g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/salt_quantity_per_portion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/sodium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:height="30dp"/>
-
-        <TextView
-            android:id="@+id/sodium_quantity_per_100g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/sodium_quantity_per_portion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"/>
-    </TableRow>
-</TableLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
