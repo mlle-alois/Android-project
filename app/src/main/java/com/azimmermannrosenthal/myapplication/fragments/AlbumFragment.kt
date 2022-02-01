@@ -23,7 +23,6 @@ import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
 import com.azimmermannrosenthal.myapplication.database.AlbumTable
 import com.azimmermannrosenthal.myapplication.database.AppDatabase
 import com.azimmermannrosenthal.myapplication.objects.Album
-import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
@@ -60,10 +59,10 @@ class AlbumFragment : Fragment() {
         tracks = initTracks(view, album.idAlbum, view.findViewById(R.id.album_number_of_tracks))
 
         view.findViewById<TextView>(R.id.album_artist).text = album.strArtist
-        view.findViewById<TextView>(R.id.album_title).text = album.strAlbum
+        view.findViewById<TextView>(R.id.row_item_title).text = album.strAlbum
         Picasso.get().load(album.strAlbumThumb)
             .into(view.findViewById<ImageView>(R.id.album_background_image))
-        Picasso.get().load(album.strAlbumThumb).into(view.findViewById<ImageView>(R.id.album_image))
+        Picasso.get().load(album.strAlbumThumb).into(view.findViewById<ImageView>(R.id.row_item_image))
 
         view.findViewById<TextView>(R.id.album_score).text = album.intScore
         view.findViewById<TextView>(R.id.album_votes).text =

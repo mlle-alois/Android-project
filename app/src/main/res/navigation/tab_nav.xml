@@ -18,11 +18,25 @@
     <fragment
         android:id="@+id/tab_search"
         android:name="com.azimmermannrosenthal.myapplication.fragments.HomeSearchFragment"
-        android:label="HomeSearchFragment" />
+        android:label="HomeSearchFragment" >
+        <action
+            android:id="@+id/action_tab_search_to_albumFragment"
+            app:destination="@id/albumFragment" />
+        <action
+            android:id="@+id/action_tab_search_to_artistFragment"
+            app:destination="@id/artistFragment" />
+    </fragment>
     <fragment
         android:id="@+id/tab_favorites"
         android:name="com.azimmermannrosenthal.myapplication.fragments.HomeFavoritesFragment"
-        android:label="HomeFavoritesFragment" />
+        android:label="HomeFavoritesFragment" >
+        <action
+            android:id="@+id/action_tab_favorites_to_albumFragment"
+            app:destination="@id/albumFragment" />
+        <action
+            android:id="@+id/action_tab_favorites_to_artistFragment"
+            app:destination="@id/artistFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/albumFragment"

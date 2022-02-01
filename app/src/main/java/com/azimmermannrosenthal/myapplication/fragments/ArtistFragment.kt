@@ -236,7 +236,7 @@ class ArtistFragment : Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumCell {
             return AlbumCell(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.list_album, parent, false)
+                    .inflate(R.layout.list_detailled_item, parent, false)
             )
         }
 
@@ -262,9 +262,9 @@ class ArtistFragment : Fragment() {
 
     class AlbumCell(v: View) : RecyclerView.ViewHolder(v) {
 
-        val album_image = v.findViewById<ImageView>(R.id.album_image)
-        val album_title = v.findViewById<TextView>(R.id.album_title)
-        val album_date = v.findViewById<TextView>(R.id.album_date)
+        val album_image = v.findViewById<ImageView>(R.id.row_item_image)
+        val album_title = v.findViewById<TextView>(R.id.row_item_title)
+        val album_date = v.findViewById<TextView>(R.id.row_item_date)
 
     }
 

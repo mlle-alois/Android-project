@@ -11,7 +11,7 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/album_card"
+        android:id="@+id/row_item_card"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:cardElevation="0dp"
@@ -26,7 +26,7 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/album_image_card"
+                android:id="@+id/row_item_image_card"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
@@ -36,7 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/album_image"
+                    android:id="@+id/row_item_image"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:scaleType="centerCrop"/>
@@ -51,25 +51,25 @@
                 app:layout_constraintGuide_begin="75dp" />
 
             <TextView
-                android:id="@+id/album_title"
+                android:id="@+id/row_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_display_bold"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/guideline_vertical_start"
-                app:layout_constraintTop_toTopOf="@id/album_image_card"
-                app:layout_constraintBottom_toTopOf="@id/album_date"/>
+                app:layout_constraintTop_toTopOf="@id/row_item_image_card"
+                app:layout_constraintBottom_toTopOf="@id/row_item_date"/>
 
             <TextView
-                android:id="@+id/album_date"
+                android:id="@+id/row_item_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sf_pro_text_regular"
                 android:textColor="@color/light_grey"
                 android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/album_title"
-                app:layout_constraintBottom_toBottomOf="@id/album_image_card"
+                app:layout_constraintTop_toBottomOf="@id/row_item_title"
+                app:layout_constraintBottom_toBottomOf="@id/row_item_image_card"
                 app:layout_constraintStart_toStartOf="@id/guideline_vertical_start" />
 
 

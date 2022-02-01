@@ -20,4 +20,5 @@
     <color name="bottom_bar_default">#EBEBEB</color>
     <color name="text_shadow">#7F000000</color>
     <color name="text_light_shadow">#FFFFFFFF</color>
+    <color name="edit_text_background">#E6E6E6</color>
 </resources>
