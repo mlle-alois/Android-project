@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         supportActionBar?.hide()
+        executeCall()
     }
 
     private fun executeCall() {
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         // REGION RESEARCH ARTIST
         MainScope().launch(Dispatchers.Main) {
             try {
-                val response = ApiClient.apiService.searchArtistByName("Céline%")
+                val response = ApiClient.apiService.searchArtistById("112024")
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as FoundedArtistList

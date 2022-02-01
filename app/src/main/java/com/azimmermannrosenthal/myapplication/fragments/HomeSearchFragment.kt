@@ -50,9 +50,11 @@ class HomeSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).findViewById<TextView>(R.id.title).text = getString(R.string.tab_research)
+        (activity as AppCompatActivity).findViewById<TextView>(R.id.title).text =
+            getString(R.string.tab_research)
 
-        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility = View.VISIBLE
+        (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility =
+            View.VISIBLE
 
         clearSearchListener(view)
 
@@ -152,13 +154,13 @@ class HomeSearchFragment : Fragment() {
                 Log.d("ERROR CATCH", e.message.toString())
             }
         }
-        Log.d("artistes : ",artists.toString())
+        Log.d("artistes : ", artists.toString())
         return artists
     }
 
-    private fun clearSearchListener(view: View){
-      val editText = view.findViewById<EditText>(R.id.plain_text_input)
-      val button = view.findViewById<Button>(R.id.calc_clear_txt_Prise)
+    private fun clearSearchListener(view: View) {
+        val editText = view.findViewById<EditText>(R.id.plain_text_input)
+        val button = view.findViewById<Button>(R.id.calc_clear_txt_Prise)
         button.setOnClickListener {
             editText.text.clear()
         }
@@ -279,8 +281,6 @@ class HomeSearchFragment : Fragment() {
         }
 
 
-
-
         override fun getItemCount(): Int {
             return artist_list.size
         }
@@ -289,7 +289,7 @@ class HomeSearchFragment : Fragment() {
 
     class ArtistCell(v: View) : RecyclerView.ViewHolder(v) {
 
-      val artist_image = v.findViewById<ImageView>(R.id.row_item_image)
+        val artist_image = v.findViewById<ImageView>(R.id.row_item_image)
         val artist_title = v.findViewById<TextView>(R.id.row_item_title)
 
 
