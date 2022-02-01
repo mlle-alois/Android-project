@@ -56,6 +56,11 @@ class HomeSearchFragment : Fragment() {
 
         clearSearchListener(view)
 
+        SetOnTextChangeListener(view)
+
+    }
+
+    private fun SetOnTextChangeListener(view: View) {
         val editText = view.findViewById<View>(R.id.plain_text_input) as EditText
         editText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
@@ -64,10 +69,10 @@ class HomeSearchFragment : Fragment() {
             ) {
                 if (s != "") {
                     //do your work here
-                    artists = initArtists(view, s.toString()+"%")
-                    Log.d("artists : ",allArtist.toString())
+                    artists = initArtists(view, s.toString() + "%")
+                    Log.d("artists : ", allArtist.toString())
 
-                    if(allArtist.isNotEmpty()) {
+                    if (allArtist.isNotEmpty()) {
                         Log.d("artist id : ", allArtist.takeLast(1)[0].idArtist)
                         albums =
                             initAlbums(view, allArtist.takeLast(1)[0].idArtist)
@@ -84,7 +89,6 @@ class HomeSearchFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable) {}
         })
-
     }
 
     private fun initAlbums(
