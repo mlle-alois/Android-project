@@ -3,23 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/drawable/edit_text_background.xml" value="0.113" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/drawable/grey_textline.xml" value="0.2025" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/drawable/home_textline.xml" value="0.2025" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/drawable/ic_accueil_recherche.xml" value="0.113" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/drawable/ic_search_cancel.xml" value="0.1" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/fragment_album.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/fragment_artist.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/fragment_home_favorites.xml" value="0.1" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/fragment_home_rankings.xml" value="0.2246376811594203" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/fragment_home_search.xml" value="0.33" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/list_album.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/list_detailled_item.xml" value="0.13095238095238096" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/list_home.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/layout/list_simple_track.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/InfoWare31/StudioProjects/Android-project/app/src/main/res/menu/home_tabs.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_calories.xml" value="0.10833333333333334" />
         <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_empty_saved.xml" value="0.10833333333333334" />
         <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_nav_bar_bookmarks.xml" value="0.10833333333333334" />
@@ -37,6 +20,7 @@
         <entry key="..\:/Users/alois/AndroidStudioProjects/MyApplication/app/src/main/res/layout/list_item.xml" value="0.1" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/drawable/button_background.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/drawable/circle.xml" value="0.25104166666666666" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/drawable/grey_textline.xml" value="0.378125" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/drawable/home_textline.xml" value="0.2578125" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/drawable/home_textline_disabled.xml" value="0.378125" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/drawable/ic_accueil_recherche.xml" value="0.378125" />
