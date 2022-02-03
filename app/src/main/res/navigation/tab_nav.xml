@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_tab_rankings_to_artistFragment"
             app:destination="@id/artistFragment" />
+        <action
+            android:id="@+id/action_tab_rankings_to_trackFragment"
+            app:destination="@id/trackFragment" />
     </fragment>
     <fragment
         android:id="@+id/tab_search"
@@ -51,6 +54,9 @@
         <action
             android:id="@+id/action_albumFragment_to_artistFragment"
             app:destination="@id/artistFragment" />
+        <action
+            android:id="@+id/action_albumFragment_to_trackFragment"
+            app:destination="@id/trackFragment" />
     </fragment>
 
     <fragment
@@ -66,5 +72,20 @@
         <action
             android:id="@+id/action_artistFragment_to_albumFragment"
             app:destination="@id/albumFragment" />
+        <action
+            android:id="@+id/action_artistFragment_to_trackFragment"
+            app:destination="@id/trackFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/trackFragment"
+        android:name="com.azimmermannrosenthal.myapplication.fragments.TrackFragment"
+        android:label="TrackFragment" >
+        <argument
+            android:name="track"
+            app:argType="com.azimmermannrosenthal.myapplication.objects.Track" />
+        <action
+            android:id="@+id/action_trackFragment_to_tab_rankings"
+            app:destination="@id/tab_rankings" />
     </fragment>
 </navigation>

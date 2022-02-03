@@ -181,13 +181,11 @@ class AlbumFragment : Fragment() {
                     tracks,
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
-                            Log.d("ITEM_CLICKED", "Position $position")
-                            //ProductsListFragmentDirections généré automatiquement grâce au lien dans app-nav
-                            /*findNavController().navigate(
-                                ProductsListFragmentDirections.actionProductsListFragmentToProductDetailsFragment(
-                                    products[position]
+                            findNavController().navigate(
+                                AlbumFragmentDirections.actionAlbumFragmentToTrackFragment(
+                                    tracks[position]
                                 )
-                            )*/
+                            )
                         }
                     }
                 )

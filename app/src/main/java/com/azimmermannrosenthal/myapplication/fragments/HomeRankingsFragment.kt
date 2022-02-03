@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.azimmermannrosenthal.myapplication.AlbumClickListener
 import com.azimmermannrosenthal.myapplication.ItemClickListener
 import com.azimmermannrosenthal.myapplication.R
 import com.azimmermannrosenthal.myapplication.TrackClickListener
@@ -33,6 +34,7 @@ class HomeRankingsFragment : Fragment() {
 
     private var tracks = mutableListOf<Track>()
     private var albums = mutableListOf<Album>()
+    private var isOnTracks = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,6 +65,7 @@ class HomeRankingsFragment : Fragment() {
         val tracksTextView: TextView = view.findViewById(R.id.tracks)
         val albumsTextView: TextView = view.findViewById(R.id.albmums)
         tracksTextView.setOnClickListener {
+            isOnTracks = true
             it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
             albumsTextView.background =
                 ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
@@ -77,6 +80,7 @@ class HomeRankingsFragment : Fragment() {
         }
 
         albumsTextView.setOnClickListener {
+            isOnTracks = false
             it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
             tracksTextView.background =
                 ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
@@ -108,7 +112,9 @@ class HomeRankingsFragment : Fragment() {
                         }
                         tracks.add(track)
                     }
-                    setMostLovedTracks(view, tracks)
+                    if(isOnTracks) {
+                        setMostLovedTracks(view, tracks)
+                    }
                 } else {
                     Log.d("ERROR", response.message())
                 }
@@ -157,54 +163,15 @@ class HomeRankingsFragment : Fragment() {
                     tracks,
                     listener = object : TrackClickListener {
                         override fun onTrackClicked(position: Int) {
-                            Log.d("INFO", position.toString())
-                            //TODO
-                        }
-
-                        override fun onAlbumClicked(position: Int) {
-                            MainScope().launch(Dispatchers.Main) {
-                                try {
-                                    val response =
-                                        ApiClient.apiService.getAlbumsById(tracks[position].idAlbum)
-
-                                    if (response.isSuccessful && response.body() != null) {
-                                        val content = response.body() as AlbumList
-                                        findNavController().navigate(
-                                            HomeRankingsFragmentDirections.actionTabRankingsToAlbumFragment(
-                                                content.albumList[0]
-                                            )
-                                        )
-                                    } else {
-                                        Log.d("ERROR", response.message())
-                                    }
-
-                                } catch (e: Exception) {
-                                    Log.d("ERROR CATCH", e.message.toString())
-                                }
-                            }
+                            findNavController().navigate(
+                                HomeRankingsFragmentDirections.actionTabRankingsToTrackFragment(
+                                    tracks[position]
+                                )
+                            )
                         }
 
                         override fun onArtistClicked(position: Int) {
-                            MainScope().launch(Dispatchers.Main) {
-                                try {
-                                    val response =
-                                        ApiClient.apiService.searchArtistByName(tracks[position].strArtist)
-
-                                    if (response.isSuccessful && response.body() != null) {
-                                        val content = response.body() as FoundedArtistList
-                                        findNavController().navigate(
-                                            HomeRankingsFragmentDirections.actionTabRankingsToArtistFragment(
-                                                content.artistList[0]
-                                            )
-                                        )
-                                    } else {
-                                        Log.d("ERROR", response.message())
-                                    }
-
-                                } catch (e: Exception) {
-                                    Log.d("ERROR CATCH", e.message.toString())
-                                }
-                            }
+                            navigateToArtist(tracks[position].strArtist)
                         }
                     }
                 )
@@ -223,19 +190,46 @@ class HomeRankingsFragment : Fragment() {
             view.findViewById<RecyclerView>(R.id.item_list).run {
                 adapter = AlbumAdapter(
                     albums,
-                    listener = object : ItemClickListener {
-                        override fun onItemClicked(position: Int) {
+                    listener = object : AlbumClickListener {
+                        override fun onAlbumClicked(position: Int) {
                             findNavController().navigate(
                                 HomeRankingsFragmentDirections.actionTabRankingsToAlbumFragment(
                                     albums[position]
                                 )
                             )
                         }
+
+                        override fun onArtistClicked(position: Int) {
+                            navigateToArtist(albums[position].strArtist)
+                        }
                     }
                 )
 
                 //requireContext() correspond à this
                 layoutManager = LinearLayoutManager(requireContext())
+            }
+        }
+    }
+
+    private fun navigateToArtist(artistName: String) {
+        MainScope().launch(Dispatchers.Main) {
+            try {
+                val response =
+                    ApiClient.apiService.searchArtistByName(artistName)
+
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body() as FoundedArtistList
+                    findNavController().navigate(
+                        HomeRankingsFragmentDirections.actionTabRankingsToArtistFragment(
+                            content.artistList[0]
+                        )
+                    )
+                } else {
+                    Log.d("ERROR", response.message())
+                }
+
+            } catch (e: Exception) {
+                Log.d("ERROR CATCH", e.message.toString())
             }
         }
     }
@@ -265,7 +259,7 @@ class HomeRankingsFragment : Fragment() {
                 listener.onArtistClicked(position)
             }
             listItemCell.itemImage.setOnClickListener {
-                listener.onAlbumClicked(position)
+                listener.onTrackClicked(position)
             }
             listItemCell.itemView.setOnClickListener {
                 listener.onTrackClicked(position)
@@ -289,7 +283,7 @@ class HomeRankingsFragment : Fragment() {
 
     class AlbumAdapter(
         private val albums: List<Album>,
-        val listener: ItemClickListener
+        val listener: AlbumClickListener
     ) : RecyclerView.Adapter<ListItemCell>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemCell {
@@ -309,7 +303,10 @@ class HomeRankingsFragment : Fragment() {
             listItemCell.itemArtist.text = track.strArtist
 
             listItemCell.itemView.setOnClickListener {
-                listener.onItemClicked(position)
+                listener.onAlbumClicked(position)
+            }
+            listItemCell.itemArtist.setOnClickListener {
+                listener.onArtistClicked(position)
             }
         }
 
