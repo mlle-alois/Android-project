@@ -59,27 +59,7 @@ class TrackFragment : Fragment() {
             .into(view.findViewById<ImageView>(R.id.track_background_image))
         Picasso.get().load(track.strTrackThumb).into(view.findViewById<ImageView>(R.id.track_image))
 
-        /*view.findViewById<View>(R.id.album_artist).setOnClickListener {
-            MainScope().launch(Dispatchers.Main) {
-                try {
-                    //TODO barre de chargement
-                    //TODO rassembler ce code dans une classe spéciale API ?
-                    val response = ApiClient.apiService.searchArtistByName(track.strArtist)
-
-                    if (response.isSuccessful && response.body() != null) {
-                        val content = response.body() as FoundedArtistList
-                        findNavController().navigate(
-                            AlbumFragmentDirections.actionAlbumFragmentToArtistFragment(content.artistList[0])
-                        )
-                    } else {
-                        Log.d("ERROR", response.message())
-                    }
-                    //TODO permettre de relancer la requête en cas d'erreur
-                } catch (e: Exception) {
-                    Log.d("ERROR CATCH", e.message.toString())
-                }
-            }
-        }*/
+        //TODO paroles
 
         view.findViewById<View>(R.id.return_button).setOnClickListener {
             findNavController().navigate(
