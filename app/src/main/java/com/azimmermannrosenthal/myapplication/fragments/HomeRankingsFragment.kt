@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.azimmermannrosenthal.myapplication.listeners.AlbumClickListener
 import com.azimmermannrosenthal.myapplication.R
-import com.azimmermannrosenthal.myapplication.adapters.AlbumAdapter
-import com.azimmermannrosenthal.myapplication.adapters.TrackAdapter
+import com.azimmermannrosenthal.myapplication.adapters.HomeAlbumAdapter
+import com.azimmermannrosenthal.myapplication.adapters.HomeTrackAdapter
 import com.azimmermannrosenthal.myapplication.listeners.TrackClickListener
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
@@ -166,7 +166,7 @@ class HomeRankingsFragment : Fragment() {
     ) {
         if (tracks.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.item_list).run {
-                adapter = TrackAdapter(
+                adapter = HomeTrackAdapter(
                     tracks,
                     listener = object : TrackClickListener {
                         override fun onTrackClicked(position: Int) {
@@ -193,7 +193,7 @@ class HomeRankingsFragment : Fragment() {
     ) {
         if (albums.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.item_list).run {
-                adapter = AlbumAdapter(
+                adapter = HomeAlbumAdapter(
                     albums,
                     listener = object : AlbumClickListener {
                         override fun onAlbumClicked(position: Int) {

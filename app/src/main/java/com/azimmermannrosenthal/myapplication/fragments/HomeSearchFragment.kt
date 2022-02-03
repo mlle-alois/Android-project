@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -25,7 +24,6 @@ import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArti
 import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -174,7 +172,7 @@ class HomeSearchFragment : Fragment() {
 
         if (albums.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.album_list).run {
-                adapter = DetailledAlbumAdapter(
+                adapter = ItemAlbumAdapter(
                     albums,
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
@@ -196,7 +194,7 @@ class HomeSearchFragment : Fragment() {
 
         if (this.artists.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.artist_list).run {
-                adapter = ArtistAdapter(
+                adapter = ItemArtistAdapter(
                     artists,
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {

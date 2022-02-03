@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.azimmermannrosenthal.myapplication.R
-import com.azimmermannrosenthal.myapplication.adapters.TrackOfAlbumAdapter
+import com.azimmermannrosenthal.myapplication.adapters.TrackAdapter
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
@@ -179,7 +179,7 @@ class AlbumFragment : Fragment() {
 
         if (tracks.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.track_list).run {
-                adapter = TrackOfAlbumAdapter(
+                adapter = TrackAdapter(
                     tracks,
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {

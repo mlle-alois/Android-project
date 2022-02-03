@@ -8,7 +8,7 @@ import com.azimmermannrosenthal.myapplication.listeners.ItemClickListener
 import com.azimmermannrosenthal.myapplication.objects.Album
 import com.squareup.picasso.Picasso
 
-class DetailledAlbumAdapter(
+class ItemAlbumAdapter(
     private val albums: List<Album>,
     private val listener: ItemClickListener
 ) : RecyclerView.Adapter<RowItemCell>() {
