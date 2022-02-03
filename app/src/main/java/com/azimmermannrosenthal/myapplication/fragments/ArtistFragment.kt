@@ -22,6 +22,7 @@ import com.azimmermannrosenthal.myapplication.adapters.TrackAdapter
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.AlbumList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
+import com.azimmermannrosenthal.myapplication.database.AlbumTable
 import com.azimmermannrosenthal.myapplication.database.AppDatabase
 import com.azimmermannrosenthal.myapplication.database.ArtistTable
 import com.azimmermannrosenthal.myapplication.objects.Album
@@ -84,26 +85,24 @@ class ArtistFragment : Fragment() {
             .build()
 
         val artistDao = db.artistDao()
-        val artists: List<ArtistTable> = artistDao.getAll()
-        val artistsIds: MutableList<String> = mutableListOf()
-        for (artistTable: ArtistTable in artists) {
-            artistsIds.add(artistTable.artistId)
-        }
+        var artists: List<ArtistTable> = artistDao.getAll()
 
         val favoriteButtonOn: View = view.findViewById(R.id.favorite_button_on)
-        if (artistsIds.contains(artist.idArtist)) {
+        if (isArtistListContainsId(artists, artist.idArtist)) {
             favoriteButtonOn.visibility = VISIBLE
         } else {
             favoriteButtonOn.visibility = GONE
         }
 
         view.findViewById<View>(R.id.favorite_button).setOnClickListener {
-            if (artistsIds.contains(artist.idArtist)) {
-                artistDao.delete(ArtistTable(artist.idArtist))
+            if (isArtistListContainsId(artists, artist.idArtist)) {
+                artistDao.delete(findArtistTableById(artists, artist.idArtist))
                 favoriteButtonOn.visibility = GONE
+                artists = artistDao.getAll()
             } else {
                 artistDao.insert(ArtistTable(artist.idArtist))
                 favoriteButtonOn.visibility = VISIBLE
+                artists = artistDao.getAll()
             }
         }
 
@@ -112,6 +111,24 @@ class ArtistFragment : Fragment() {
                 ArtistFragmentDirections.actionArtistFragmentToTabRankings()
             )
         }
+    }
+
+    private fun isArtistListContainsId(artists: List<ArtistTable>, idArtist: String): Boolean {
+        for(artistTable in artists) {
+            if(artistTable.artistId == idArtist) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun findArtistTableById(artists: List<ArtistTable>, idArtist: String): ArtistTable {
+        for(artistTable in artists) {
+            if(artistTable.artistId == idArtist) {
+                return artistTable
+            }
+        }
+        return artists[0]
     }
 
     private fun initAlbums(

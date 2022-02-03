@@ -87,27 +87,25 @@ class AlbumFragment : Fragment() {
             .build()
 
         val userDao = db.albumDao()
-        val albums: List<AlbumTable> = userDao.getAll()
-        val albumsIds: MutableList<String> = mutableListOf()
-        for (albumTable: AlbumTable in albums) {
-            albumsIds.add(albumTable.albumId)
-        }
+        var albums: List<AlbumTable> = userDao.getAll()
 
         val favoriteButtonOn: View = view.findViewById(R.id.favorite_button_on)
 
-        if (albumsIds.contains(album.idAlbum)) {
+        if (isAlbumsListContainsId(albums, album.idAlbum)) {
             favoriteButtonOn.visibility = VISIBLE
         } else {
             favoriteButtonOn.visibility = GONE
         }
 
         view.findViewById<View>(R.id.favorite_button).setOnClickListener {
-            if (albumsIds.contains(album.idAlbum)) {
-                userDao.delete(AlbumTable(album.idAlbum))
+            if (isAlbumsListContainsId(albums, album.idAlbum)) {
+                userDao.delete(findAlbumTableById(albums, album.idAlbum))
                 favoriteButtonOn.visibility = GONE
+                albums = userDao.getAll()
             } else {
                 userDao.insert(AlbumTable(album.idAlbum))
                 favoriteButtonOn.visibility = VISIBLE
+                albums = userDao.getAll()
             }
         }
 
@@ -140,6 +138,23 @@ class AlbumFragment : Fragment() {
         }
     }
 
+    private fun isAlbumsListContainsId(albums: List<AlbumTable>, idAlbum: String): Boolean {
+        for(albumTable in albums) {
+            if(albumTable.albumId == idAlbum) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun findAlbumTableById(albums: List<AlbumTable>, idAlbum: String): AlbumTable {
+        for(albumTable in albums) {
+            if(albumTable.albumId == idAlbum) {
+                return albumTable
+            }
+        }
+        return albums[0]
+    }
 
     private fun initTracks(
         view: View,
