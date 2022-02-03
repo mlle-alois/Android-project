@@ -52,6 +52,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:background="@drawable/ic_like_off"
+            android:layout_marginEnd="15dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/guideline_horizontal_start" />
 
@@ -122,7 +123,7 @@
             android:layout_marginStart="15dp"
             app:cardElevation="0dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="15dp"
             app:cardBackgroundColor="@color/grey_background"
             app:cardCornerRadius="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -195,8 +196,8 @@
             android:layout_width="wrap_content"
             android:layout_height="107dp"
             android:layout_marginTop="30dp"
-            android:paddingStart="17dp"
-            android:paddingEnd="13dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/votes_card">
@@ -212,12 +213,15 @@
 
         <TextView
             android:id="@+id/tracks"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/sf_pro_display_heavy"
             android:text="@string/tab_tracks"
+            android:background="@drawable/grey_textline"
+            android:paddingBottom="12dp"
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -227,7 +231,6 @@
             android:id="@+id/track_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="36dp"
             android:layout_weight="1"
             app:layout_constraintTop_toBottomOf="@id/tracks"
             tools:layout_editor_absoluteX="0dp">

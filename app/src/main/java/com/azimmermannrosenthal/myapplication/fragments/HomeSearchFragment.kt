@@ -50,7 +50,7 @@ class HomeSearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).findViewById<TextView>(R.id.title).text =
-            getString(R.string.tab_research)
+            getString(R.string.to_research)
 
         (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility =
             View.VISIBLE

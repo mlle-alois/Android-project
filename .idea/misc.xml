@@ -57,7 +57,7 @@
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/fragment_home_rankings.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/fragment_home_rankings_albums.xml" value="0.35144927536231885" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/fragment_home_rankings_tracks.xml" value="0.35144927536231885" />
-        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/fragment_home_search.xml" value="0.16236068895643363" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/fragment_home_search.xml" value="0.22" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/fragment_product_details.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/fragment_product_details_nutrition_fragment.xml" value="0.25" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/fragment_product_details_nutritional_values_fragment.xml" value="0.24895833333333334" />
@@ -65,8 +65,9 @@
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/home_list.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/home_track.xml" value="0.22" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/list_album.xml" value="0.3657289002557545" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/list_detailled_item.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/list_home.xml" value="0.17603850050658562" />
-        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/list_simple_track.xml" value="0.18568840579710144" />
+        <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/list_simple_track.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/product.xml" value="0.25" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/layout/products_list.xml" value="0.35144927536231885" />
         <entry key="..\:/Users/alois/Documents/4AL/Reactive Programming Android/Application-musicale-android/app/src/main/res/menu/home_tabs.xml" value="0.24895833333333334" />
