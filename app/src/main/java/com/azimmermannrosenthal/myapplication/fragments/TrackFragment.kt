@@ -1,35 +1,19 @@
 package com.azimmermannrosenthal.myapplication.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import com.azimmermannrosenthal.myapplication.ItemClickListener
 import com.azimmermannrosenthal.myapplication.R
-import com.azimmermannrosenthal.myapplication.api.ApiClient
-import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
-import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
-import com.azimmermannrosenthal.myapplication.database.AlbumTable
-import com.azimmermannrosenthal.myapplication.database.AppDatabase
-import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-import java.util.*
 
 class TrackFragment : Fragment() {
 

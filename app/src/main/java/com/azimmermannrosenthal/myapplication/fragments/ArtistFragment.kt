@@ -15,8 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.azimmermannrosenthal.myapplication.ItemClickListener
+import com.azimmermannrosenthal.myapplication.listeners.ItemClickListener
 import com.azimmermannrosenthal.myapplication.R
+import com.azimmermannrosenthal.myapplication.adapters.DetailledAlbumAdapter
+import com.azimmermannrosenthal.myapplication.adapters.TrackOfArtistAdapter
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.AlbumList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
@@ -181,7 +183,7 @@ class ArtistFragment : Fragment() {
 
         if (albums.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.album_list).run {
-                adapter = AlbumAdapter(
+                adapter = DetailledAlbumAdapter(
                     albums,
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
@@ -193,8 +195,6 @@ class ArtistFragment : Fragment() {
                         }
                     }
                 )
-
-                //requireContext() correspond à this
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }
@@ -207,7 +207,7 @@ class ArtistFragment : Fragment() {
 
         if (tracks.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.track_list).run {
-                adapter = TrackOfAlbumAdapter(
+                adapter = TrackOfArtistAdapter(
                     tracks,
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
@@ -219,87 +219,8 @@ class ArtistFragment : Fragment() {
                         }
                     }
                 )
-
-                //requireContext() correspond à this
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }
-    }
-
-    class AlbumAdapter(
-        private val albums: List<Album>,
-        val listener: ItemClickListener
-    ) : RecyclerView.Adapter<AlbumCell>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumCell {
-            return AlbumCell(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.list_detailled_item, parent, false)
-            )
-        }
-
-        override fun onBindViewHolder(albumCell: AlbumCell, position: Int) {
-
-            val album = albums[position]
-
-            Picasso.get().load(album.strAlbumThumb)
-                .into(albumCell.album_image)
-            albumCell.album_title.text = album.strAlbum
-            albumCell.album_date.text = album.intYearReleased
-
-            albumCell.itemView.setOnClickListener {
-                listener.onItemClicked(position)
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return albums.size
-        }
-
-    }
-
-    class AlbumCell(v: View) : RecyclerView.ViewHolder(v) {
-
-        val album_image = v.findViewById<ImageView>(R.id.row_item_image)
-        val album_title = v.findViewById<TextView>(R.id.row_item_title)
-        val album_date = v.findViewById<TextView>(R.id.row_item_date)
-
-    }
-
-    class TrackOfAlbumAdapter(
-        private val tracks: List<Track>,
-        val listener: ItemClickListener
-    ) : RecyclerView.Adapter<ListTrackCell>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListTrackCell {
-            return ListTrackCell(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.list_simple_track, parent, false)
-            )
-        }
-
-        override fun onBindViewHolder(listTrackCell: ListTrackCell, position: Int) {
-
-            val track = tracks[position]
-
-            listTrackCell.track_number.text = (position + 1).toString()
-            listTrackCell.track_title.text = track.strTrack
-
-            listTrackCell.itemView.setOnClickListener {
-                listener.onItemClicked(position)
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return tracks.size
-        }
-
-    }
-
-    class ListTrackCell(v: View) : RecyclerView.ViewHolder(v) {
-
-        val track_number = v.findViewById<TextView>(R.id.track_number)
-        val track_title = v.findViewById<TextView>(R.id.track_title)
-
     }
 }

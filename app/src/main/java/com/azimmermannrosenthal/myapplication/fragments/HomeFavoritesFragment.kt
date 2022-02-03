@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.azimmermannrosenthal.myapplication.*
+import com.azimmermannrosenthal.myapplication.adapters.ArtistAdapter
+import com.azimmermannrosenthal.myapplication.adapters.DetailledAlbumAdapter
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.AlbumList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
 import com.azimmermannrosenthal.myapplication.database.AlbumTable
 import com.azimmermannrosenthal.myapplication.database.AppDatabase
 import com.azimmermannrosenthal.myapplication.database.ArtistTable
+import com.azimmermannrosenthal.myapplication.listeners.ItemClickListener
 import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -89,7 +92,7 @@ class HomeFavoritesFragment : Fragment() {
 
         if (albums.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.album_list).run {
-                adapter = AlbumAdapter(
+                adapter = DetailledAlbumAdapter(
                     albums,
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
@@ -99,8 +102,6 @@ class HomeFavoritesFragment : Fragment() {
                         }
                     }
                 )
-
-                //requireContext() correspond à this
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }
@@ -123,92 +124,9 @@ class HomeFavoritesFragment : Fragment() {
                         }
                     }
                 )
-
-                //requireContext() correspond à this
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }
-    }
-
-    class AlbumAdapter(
-        private val albums: List<Album>,
-        val listener: ItemClickListener
-    ) : RecyclerView.Adapter<AlbumCell>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumCell {
-            return AlbumCell(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.list_detailled_item, parent, false)
-            )
-        }
-
-        override fun onBindViewHolder(albumCell: AlbumCell, position: Int) {
-
-            val album = albums[position]
-
-            Picasso.get().load(album.strAlbumThumb)
-                .into(albumCell.album_image)
-            albumCell.album_title.text = album.strAlbum
-            albumCell.album_date.text = album.intYearReleased
-
-            albumCell.itemView.setOnClickListener {
-                listener.onItemClicked(position)
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return albums.size
-        }
-
-    }
-
-    class AlbumCell(v: View) : RecyclerView.ViewHolder(v) {
-
-        val album_image = v.findViewById<ImageView>(R.id.row_item_image)
-        val album_title = v.findViewById<TextView>(R.id.row_item_title)
-        val album_date = v.findViewById<TextView>(R.id.row_item_date)
-
-    }
-
-    class ArtistAdapter(
-        private val artist_list: List<Artist>,
-        val listener: ItemClickListener
-    ) : RecyclerView.Adapter<ArtistCell>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistCell {
-            return ArtistCell(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.list_detailled_item, parent, false)
-            )
-        }
-
-        override fun onBindViewHolder(artistCell: ArtistCell, position: Int) {
-
-            val artist = artist_list[position]
-
-
-            Picasso.get().load(artist.strArtistThumb)
-                .into(artistCell.artist_image)
-            artistCell.artist_title.text = artist.strArtist
-
-            artistCell.itemView.setOnClickListener {
-                listener.onItemClicked(position)
-            }
-        }
-
-
-        override fun getItemCount(): Int {
-            return artist_list.size
-        }
-
-    }
-
-    class ArtistCell(v: View) : RecyclerView.ViewHolder(v) {
-
-        val artist_image = v.findViewById<ImageView>(R.id.row_item_image)
-        val artist_title = v.findViewById<TextView>(R.id.row_item_title)
-
-
     }
 
     private fun initArtists(
@@ -240,6 +158,7 @@ class HomeFavoritesFragment : Fragment() {
         Log.d("artistes : ", artists.toString())
         return artists
     }
+
     private fun initAlbums(
         view: View,
         albumId: String,

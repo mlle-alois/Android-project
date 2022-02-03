@@ -1,4 +1,4 @@
-package com.azimmermannrosenthal.myapplication
+package com.azimmermannrosenthal.myapplication.listeners
 
 interface AlbumClickListener {
     fun onAlbumClicked(position: Int)

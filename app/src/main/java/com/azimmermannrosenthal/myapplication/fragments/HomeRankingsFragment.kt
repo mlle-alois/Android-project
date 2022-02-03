@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -13,19 +12,18 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.azimmermannrosenthal.myapplication.AlbumClickListener
-import com.azimmermannrosenthal.myapplication.ItemClickListener
+import com.azimmermannrosenthal.myapplication.listeners.AlbumClickListener
 import com.azimmermannrosenthal.myapplication.R
-import com.azimmermannrosenthal.myapplication.TrackClickListener
+import com.azimmermannrosenthal.myapplication.adapters.AlbumAdapter
+import com.azimmermannrosenthal.myapplication.adapters.TrackAdapter
+import com.azimmermannrosenthal.myapplication.listeners.TrackClickListener
 import com.azimmermannrosenthal.myapplication.api.ApiClient
-import com.azimmermannrosenthal.myapplication.api.recuperation_lists.AlbumList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedAlbumList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedTrackList
 import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -65,34 +63,44 @@ class HomeRankingsFragment : Fragment() {
         val tracksTextView: TextView = view.findViewById(R.id.tracks)
         val albumsTextView: TextView = view.findViewById(R.id.albmums)
         tracksTextView.setOnClickListener {
-            isOnTracks = true
-            it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
-            albumsTextView.background =
-                ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
-            setMostLovedTracks(view, tracks)
-            tracksTextView.setTextColor(ContextCompat.getColor(view.context, R.color.black))
-            albumsTextView.setTextColor(
-                ContextCompat.getColor(
-                    view.context,
-                    R.color.light_grey
-                )
-            )
+            setTracksOnScreen(tracksTextView, albumsTextView, view)
         }
 
         albumsTextView.setOnClickListener {
-            isOnTracks = false
-            it.background = ContextCompat.getDrawable(view.context, R.drawable.home_textline)
-            tracksTextView.background =
-                ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
-            setMostLovedAlbums(view, albums)
-            albumsTextView.setTextColor(ContextCompat.getColor(view.context, R.color.black))
-            tracksTextView.setTextColor(
-                ContextCompat.getColor(
-                    view.context,
-                    R.color.light_grey
-                )
-            )
+            setAlbumsOnScreen(tracksTextView, albumsTextView, view)
         }
+    }
+
+    private fun setTracksOnScreen(tracksTextView: TextView, albumsTextView: TextView, view: View) {
+        isOnTracks = true
+        tracksTextView.background =
+            ContextCompat.getDrawable(view.context, R.drawable.home_textline)
+        albumsTextView.background =
+            ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
+        setMostLovedTracks(view, tracks)
+        tracksTextView.setTextColor(ContextCompat.getColor(view.context, R.color.black))
+        albumsTextView.setTextColor(
+            ContextCompat.getColor(
+                view.context,
+                R.color.light_grey
+            )
+        )
+    }
+
+    private fun setAlbumsOnScreen(tracksTextView: TextView, albumsTextView: TextView, view: View) {
+        isOnTracks = false
+        albumsTextView.background =
+            ContextCompat.getDrawable(view.context, R.drawable.home_textline)
+        tracksTextView.background =
+            ContextCompat.getDrawable(view.context, R.drawable.home_textline_disabled)
+        setMostLovedAlbums(view, albums)
+        albumsTextView.setTextColor(ContextCompat.getColor(view.context, R.color.black))
+        tracksTextView.setTextColor(
+            ContextCompat.getColor(
+                view.context,
+                R.color.light_grey
+            )
+        )
     }
 
     private fun initTracks(view: View): MutableList<Track> {
@@ -112,7 +120,7 @@ class HomeRankingsFragment : Fragment() {
                         }
                         tracks.add(track)
                     }
-                    if(isOnTracks) {
+                    if (isOnTracks) {
                         setMostLovedTracks(view, tracks)
                     }
                 } else {
@@ -156,7 +164,6 @@ class HomeRankingsFragment : Fragment() {
         view: View,
         tracks: List<Track>
     ) {
-
         if (tracks.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.item_list).run {
                 adapter = TrackAdapter(
@@ -175,8 +182,6 @@ class HomeRankingsFragment : Fragment() {
                         }
                     }
                 )
-
-                //requireContext() correspond à this
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }
@@ -204,8 +209,6 @@ class HomeRankingsFragment : Fragment() {
                         }
                     }
                 )
-
-                //requireContext() correspond à this
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }
@@ -214,8 +217,7 @@ class HomeRankingsFragment : Fragment() {
     private fun navigateToArtist(artistName: String) {
         MainScope().launch(Dispatchers.Main) {
             try {
-                val response =
-                    ApiClient.apiService.searchArtistByName(artistName)
+                val response = ApiClient.apiService.searchArtistByName(artistName)
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as FoundedArtistList
@@ -231,87 +233,6 @@ class HomeRankingsFragment : Fragment() {
             } catch (e: Exception) {
                 Log.d("ERROR CATCH", e.message.toString())
             }
-        }
-    }
-
-    class TrackAdapter(
-        private val tracks: List<Track>,
-        val listener: TrackClickListener
-    ) : RecyclerView.Adapter<ListItemCell>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemCell {
-            return ListItemCell(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.list_home, parent, false)
-            )
-        }
-
-        override fun onBindViewHolder(listItemCell: ListItemCell, position: Int) {
-
-            val track = tracks[position]
-
-            listItemCell.itemNumber.text = (position + 1).toString()
-            Picasso.get().load(track.strTrackThumb).into(listItemCell.itemImage)
-            listItemCell.itemTitle.text = track.strTrack
-            listItemCell.itemArtist.text = track.strArtist
-
-            listItemCell.itemArtist.setOnClickListener {
-                listener.onArtistClicked(position)
-            }
-            listItemCell.itemImage.setOnClickListener {
-                listener.onTrackClicked(position)
-            }
-            listItemCell.itemView.setOnClickListener {
-                listener.onTrackClicked(position)
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return tracks.size
-        }
-
-    }
-
-    class ListItemCell(v: View) : RecyclerView.ViewHolder(v) {
-
-        val itemNumber: TextView = v.findViewById(R.id.item_number)
-        val itemImage: ImageView = v.findViewById(R.id.item_image)
-        val itemTitle: TextView = v.findViewById(R.id.item_title)
-        val itemArtist: TextView = v.findViewById(R.id.item_artist)
-
-    }
-
-    class AlbumAdapter(
-        private val albums: List<Album>,
-        val listener: AlbumClickListener
-    ) : RecyclerView.Adapter<ListItemCell>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemCell {
-            return ListItemCell(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.list_home, parent, false)
-            )
-        }
-
-        override fun onBindViewHolder(listItemCell: ListItemCell, position: Int) {
-
-            val track = albums[position]
-
-            listItemCell.itemNumber.text = (position + 1).toString()
-            Picasso.get().load(track.strAlbumThumb).into(listItemCell.itemImage)
-            listItemCell.itemTitle.text = track.strAlbum
-            listItemCell.itemArtist.text = track.strArtist
-
-            listItemCell.itemView.setOnClickListener {
-                listener.onAlbumClicked(position)
-            }
-            listItemCell.itemArtist.setOnClickListener {
-                listener.onArtistClicked(position)
-            }
-        }
-
-        override fun getItemCount(): Int {
-            return albums.size
         }
     }
 }
