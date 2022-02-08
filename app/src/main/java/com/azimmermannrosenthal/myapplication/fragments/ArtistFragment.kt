@@ -32,12 +32,13 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class ArtistFragment : Fragment() {
 
-    private var albums = mutableListOf<Album>()
-    private var tracks = mutableListOf<Track>()
+    private var albums = listOf<Album>()
+    private var tracks = listOf<Track>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,8 +61,20 @@ class ArtistFragment : Fragment() {
 
         val artist: Artist = ArtistFragmentArgs.fromBundle(requireArguments()).artist
 
-        tracks = initTracks(view, artist.strArtist)
-        albums = initAlbums(view, artist.idArtist, view.findViewById(R.id.albums))
+        MainScope().launch(Dispatchers.Main) {
+            tracks = withContext(Dispatchers.Main) {
+                ApiClient.getTop10TracksByArtistNameAsync(artist.strArtist)
+            }.await().list
+
+            albums = withContext(Dispatchers.Main) {
+                ApiClient.getAlbumsByArtistIdAsync(artist.idArtist)
+            }.await().list
+
+            setMostLovedTracks(view, tracks)
+            setAlbums(view, albums)
+
+            view.findViewById<TextView>(R.id.albums).text = getString(R.string.number_of_albums, albums.size.toString())
+        }
 
         Picasso.get().load(artist.strArtistThumb)
             .into(view.findViewById<ImageView>(R.id.artist_image))
@@ -128,68 +141,6 @@ class ArtistFragment : Fragment() {
             }
         }
         return artists[0]
-    }
-
-    private fun initAlbums(
-        view: View,
-        artistId: String,
-        numberOfAlbumsView: TextView
-    ): MutableList<Album> {
-        val albums: MutableList<Album> = arrayListOf()
-
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                //TODO barre de chargement
-                //TODO rassembler ce code dans une classe spéciale API ?
-                val response = ApiClient.apiService.getAlbumsByArtistId(artistId)
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as AlbumList
-                    for (album: Album in content.list) {
-                        albums.add(album)
-                    }
-                    numberOfAlbumsView.text = getString(R.string.number_of_albums, albums.size.toString())
-                    setAlbums(view, albums)
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-                //TODO permettre de relancer la requête en cas d'erreur
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        return albums
-    }
-
-    private fun initTracks(
-        view: View,
-        artistName: String
-    ): MutableList<Track> {
-        val tracks: MutableList<Track> = arrayListOf()
-
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                //TODO barre de chargement
-                //TODO rassembler ce code dans une classe spéciale API ?
-                val response = ApiClient.apiService.getTop10TracksByArtistName(artistName)
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as TrackList
-                    for (track: Track in content.list) {
-                        tracks.add(track)
-                    }
-                    setMostLovedTracks(view, tracks)
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-                //TODO permettre de relancer la requête en cas d'erreur
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        return tracks
     }
 
     private fun setAlbums(

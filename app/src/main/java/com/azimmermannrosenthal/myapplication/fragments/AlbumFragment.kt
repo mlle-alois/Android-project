@@ -30,11 +30,12 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class AlbumFragment : Fragment() {
 
-    private var tracks = mutableListOf<Track>()
+    private var tracks = listOf<Track>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +58,15 @@ class AlbumFragment : Fragment() {
 
         val album: Album = AlbumFragmentArgs.fromBundle(requireArguments()).album
 
-        tracks = initTracks(view, album.idAlbum, view.findViewById(R.id.album_number_of_tracks))
+        MainScope().launch(Dispatchers.Main) {
+            tracks = withContext(Dispatchers.Main) {
+                ApiClient.getTracksByAlbumIdAsync(album.idAlbum)
+            }.await().list
+
+            setMostLovedTracks(view, tracks)
+
+            view.findViewById<TextView>(R.id.album_number_of_tracks).text = getString(R.string.songs, tracks.size.toString())
+        }
 
         view.findViewById<TextView>(R.id.album_artist).text = album.strArtist
         view.findViewById<TextView>(R.id.row_item_title).text = album.strAlbum
@@ -111,23 +120,15 @@ class AlbumFragment : Fragment() {
 
         view.findViewById<View>(R.id.album_artist).setOnClickListener {
             MainScope().launch(Dispatchers.Main) {
-                try {
-                    //TODO barre de chargement
-                    //TODO rassembler ce code dans une classe spéciale API ?
-                    val response = ApiClient.apiService.searchArtistByName(album.strArtist)
-
-                    if (response.isSuccessful && response.body() != null) {
-                        val content = response.body() as FoundedArtistList
-                        findNavController().navigate(
-                            AlbumFragmentDirections.actionAlbumFragmentToArtistFragment(content.list[0])
-                        )
-                    } else {
-                        Log.d("ERROR", response.message())
-                    }
-                    //TODO permettre de relancer la requête en cas d'erreur
-                } catch (e: Exception) {
-                    Log.d("ERROR CATCH", e.message.toString())
-                }
+                findNavController().navigate(
+                    AlbumFragmentDirections.actionAlbumFragmentToArtistFragment(
+                        withContext(
+                            Dispatchers.Main
+                        ) {
+                            ApiClient.searchArtistByNameAsync(album.strArtist)
+                        }.await().list[0]
+                    )
+                )
             }
         }
 
@@ -139,8 +140,8 @@ class AlbumFragment : Fragment() {
     }
 
     private fun isAlbumsListContainsId(albums: List<AlbumTable>, idAlbum: String): Boolean {
-        for(albumTable in albums) {
-            if(albumTable.albumId == idAlbum) {
+        for (albumTable in albums) {
+            if (albumTable.albumId == idAlbum) {
                 return true
             }
         }
@@ -148,43 +149,12 @@ class AlbumFragment : Fragment() {
     }
 
     private fun findAlbumTableById(albums: List<AlbumTable>, idAlbum: String): AlbumTable {
-        for(albumTable in albums) {
-            if(albumTable.albumId == idAlbum) {
+        for (albumTable in albums) {
+            if (albumTable.albumId == idAlbum) {
                 return albumTable
             }
         }
         return albums[0]
-    }
-
-    private fun initTracks(
-        view: View,
-        albumId: String,
-        numberOfTracksView: TextView
-    ): MutableList<Track> {
-        val tracks: MutableList<Track> = arrayListOf()
-
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                //TODO barre de chargement
-                //TODO rassembler ce code dans une classe spéciale API ?
-                val response = ApiClient.apiService.getTracksByAlbumId(albumId)
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as TrackList
-                    for (track: Track in content.list) {
-                        tracks.add(track)
-                    }
-                    numberOfTracksView.text = getString(R.string.songs, tracks.size.toString())
-                    setMostLovedTracks(view, tracks)
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-                //TODO permettre de relancer la requête en cas d'erreur
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        return tracks
     }
 
     private fun setMostLovedTracks(

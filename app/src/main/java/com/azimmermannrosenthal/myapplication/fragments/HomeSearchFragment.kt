@@ -19,21 +19,19 @@ import com.azimmermannrosenthal.myapplication.listeners.ItemClickListener
 import com.azimmermannrosenthal.myapplication.R
 import com.azimmermannrosenthal.myapplication.adapters.*
 import com.azimmermannrosenthal.myapplication.api.ApiClient
-import com.azimmermannrosenthal.myapplication.api.recuperation_lists.AlbumList
-import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
 import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class HomeSearchFragment : Fragment() {
 
-    private var albums = mutableListOf<Album>()
-    private var artists = mutableListOf<Artist>()
-    private var allArtist = mutableListOf<Artist>()
+    private var albums = listOf<Album>()
+    private var artists = listOf<Artist>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,11 +55,11 @@ class HomeSearchFragment : Fragment() {
 
         clearSearchListener(view)
 
-        SetOnTextChangeListener(view)
+        setOnTextChangeListener(view)
 
     }
 
-    private fun SetOnTextChangeListener(view: View) {
+    private fun setOnTextChangeListener(view: View) {
         val editText = view.findViewById<View>(R.id.plain_text_input) as EditText
         editText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
@@ -69,14 +67,28 @@ class HomeSearchFragment : Fragment() {
                 count: Int
             ) {
                 if (s != "") {
-                    //do your work here
-                    artists = initArtists(view, s.toString() + "%")
-                    Log.d("artists : ", allArtist.toString())
+                    MainScope().launch(Dispatchers.Main) {
 
-                    if (allArtist.isNotEmpty()) {
-                        Log.d("artist id : ", allArtist.takeLast(1)[0].idArtist)
-                        albums =
-                            initAlbums(view, allArtist.takeLast(1)[0].idArtist)
+                        artists = withContext(Dispatchers.Main) {
+                            ApiClient.searchArtistByNameAsync(s.toString() + "%")
+                        }.await().list
+
+                        setArtists(view, artists)
+                    }
+                    Log.d("artists : ", artists.toString())
+
+                    if (artists.isNotEmpty()) {
+                        Log.d("artist id : ", artists.takeLast(1)[0].idArtist)
+
+                        MainScope().launch(Dispatchers.Main) {
+
+                            albums = withContext(Dispatchers.Main) {
+                                ApiClient.getAlbumsByArtistIdAsync(artists.takeLast(1)[0].idArtist)
+                            }.await().list
+
+                            setAlbums(view, albums)
+
+                        }
                     }
 
                 }
@@ -90,71 +102,6 @@ class HomeSearchFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable) {}
         })
-    }
-
-    private fun initAlbums(
-        view: View,
-        artistId: String,
-    ): MutableList<Album> {
-        val albums: MutableList<Album> = arrayListOf()
-
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                //TODO barre de chargement
-                //TODO rassembler ce code dans une classe spéciale API ?
-                val response = ApiClient.apiService.getAlbumsByArtistId(artistId)
-
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as AlbumList
-                    for (album: Album in content.list) {
-                        this@HomeSearchFragment.albums.add(album)
-                    }
-                    setAlbums(view, albums)
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-                //TODO permettre de relancer la requête en cas d'erreur
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        return albums
-    }
-
-    private fun initArtists(
-        view: View,
-        artistName: String
-    ): MutableList<Artist> {
-        val artists: MutableList<Artist> = arrayListOf()
-
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                //TODO barre de chargement
-                //TODO rassembler ce code dans une classe spéciale API ?
-                Log.d("Input : ", artistName)
-                val response = ApiClient.apiService.searchArtistByName(artistName)
-                Log.d("Response :", response.toString())
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as FoundedArtistList
-                    for (artist: Artist in content.list) {
-                        this@HomeSearchFragment.artists.add(artist)
-                        this@HomeSearchFragment.allArtist.add(artist)
-
-                    }
-                    setArtists(view, artists)
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-                //TODO permettre de relancer la requête en cas d'erreur
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        Log.d("artistes : ", artists.toString())
-        return artists
     }
 
     private fun clearSearchListener(view: View) {

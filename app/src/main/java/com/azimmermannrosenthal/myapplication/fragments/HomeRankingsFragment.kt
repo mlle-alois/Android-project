@@ -20,18 +20,18 @@ import com.azimmermannrosenthal.myapplication.listeners.TrackClickListener
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedAlbumList
-import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedTrackList
 import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeRankingsFragment : Fragment() {
 
-    private var tracks = mutableListOf<Track>()
-    private var albums = mutableListOf<Album>()
+    private var tracks = listOf<Track>()
+    private var albums = listOf<Album>()
     private var isOnTracks = true
 
     override fun onCreateView(
@@ -49,8 +49,17 @@ class HomeRankingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tracks = initTracks(view)
-        albums = initAlbums()
+        MainScope().launch(Dispatchers.Main) {
+            tracks = withContext(Dispatchers.Main) {
+                ApiClient.getMostLovedTracksAsync()
+            }.await().list
+
+            albums = withContext(Dispatchers.Main) {
+                ApiClient.getMostLovedAlbumsAsync()
+            }.await().list
+
+            setMostLovedTracks(view, tracks)
+        }
 
         val title = (activity as AppCompatActivity).findViewById<TextView>(R.id.title)
         title.visibility = View.VISIBLE
@@ -101,63 +110,6 @@ class HomeRankingsFragment : Fragment() {
                 R.color.light_grey
             )
         )
-    }
-
-    private fun initTracks(view: View): MutableList<Track> {
-        val tracks: MutableList<Track> = arrayListOf()
-
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                //TODO barre de chargement
-                //TODO rassembler ce code dans une classe spéciale API ?
-                val response = ApiClient.apiService.getMostLovedTracks()
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as LovedTrackList
-                    for (track: Track in content.list) {
-                        if (tracks.size >= 8) {
-                            break
-                        }
-                        tracks.add(track)
-                    }
-                    if (isOnTracks) {
-                        setMostLovedTracks(view, tracks)
-                    }
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-                //TODO permettre de relancer la requête en cas d'erreur
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        return tracks
-    }
-
-    private fun initAlbums(): MutableList<Album> {
-        val albums: MutableList<Album> = arrayListOf()
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                //TODO barre de chargement
-                val response = ApiClient.apiService.getMostLovedAlbums()
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as LovedAlbumList
-                    for (album: Album in content.list) {
-                        if (albums.size >= 8) {
-                            break
-                        }
-                        albums.add(album)
-                    }
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        return albums
     }
 
     private fun setMostLovedTracks(
@@ -216,23 +168,13 @@ class HomeRankingsFragment : Fragment() {
 
     private fun navigateToArtist(artistName: String) {
         MainScope().launch(Dispatchers.Main) {
-            try {
-                val response = ApiClient.apiService.searchArtistByName(artistName)
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as FoundedArtistList
-                    findNavController().navigate(
-                        HomeRankingsFragmentDirections.actionTabRankingsToArtistFragment(
-                            content.list[0]
-                        )
-                    )
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
+            findNavController().navigate(
+                HomeRankingsFragmentDirections.actionTabRankingsToArtistFragment(
+                    withContext(Dispatchers.Main) {
+                        ApiClient.searchArtistByNameAsync(artistName)
+                    }.await().list[0]
+                )
+            )
         }
     }
 }

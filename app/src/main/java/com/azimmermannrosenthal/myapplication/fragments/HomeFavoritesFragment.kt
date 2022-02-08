@@ -28,6 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeFavoritesFragment : Fragment() {
     private var albums = mutableListOf<Album>()
@@ -56,19 +57,34 @@ class HomeFavoritesFragment : Fragment() {
         var db = get_database_instance(activity)
 
         val artistDao = db.artistDao()
-        val artists: List<ArtistTable> = artistDao.getAll()
+        val artistsTable: List<ArtistTable> = artistDao.getAll()
         var artistsIds: MutableList<String> = mutableListOf<String>()
 
-       artistsIds = artists.map { it.artistId  } as MutableList<String>
-        artistsIds.forEach { initArtists(view,it).also { this.artists = it } }
+        artistsIds = artistsTable.map { it.artistId } as MutableList<String>
 
+        MainScope().launch(Dispatchers.Main) {
+            artistsIds.forEach {
+                artists.add(withContext(Dispatchers.Main) {
+                    ApiClient.searchArtistByIdAsync(it)
+                }.await().list[0])
+            }
+            setArtists(view, artists)
+        }
 
         val albumDao = db.albumDao()
-        val albums: List<AlbumTable> = albumDao.getAll()
+        val albumsTable: List<AlbumTable> = albumDao.getAll()
         var albumsIds: MutableList<String> = mutableListOf<String>()
 
-        albumsIds = albums.map { it.albumId } as MutableList<String>
-        albumsIds.forEach { initAlbums(view,it).also { this.albums = it } }
+        albumsIds = albumsTable.map { it.albumId } as MutableList<String>
+
+        MainScope().launch(Dispatchers.Main) {
+            albumsIds.forEach {
+                albums.add(withContext(Dispatchers.Main) {
+                    ApiClient.getAlbumsByIdAsync(it)
+                }.await().list[0])
+            }
+            setAlbums(view, albums)
+        }
 
     }
 
@@ -95,7 +111,9 @@ class HomeFavoritesFragment : Fragment() {
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
                             findNavController().navigate(
-                                HomeFavoritesFragmentDirections.actionTabFavoritesToAlbumFragment(albums[position])
+                                HomeFavoritesFragmentDirections.actionTabFavoritesToAlbumFragment(
+                                    albums[position]
+                                )
                             )
                         }
                     }
@@ -117,7 +135,9 @@ class HomeFavoritesFragment : Fragment() {
                     listener = object : ItemClickListener {
                         override fun onItemClicked(position: Int) {
                             findNavController().navigate(
-                                HomeFavoritesFragmentDirections.actionTabFavoritesToArtistFragment(artists[position])
+                                HomeFavoritesFragmentDirections.actionTabFavoritesToArtistFragment(
+                                    artists[position]
+                                )
                             )
                         }
                     }
@@ -126,67 +146,4 @@ class HomeFavoritesFragment : Fragment() {
             }
         }
     }
-
-    private fun initArtists(
-        view: View,
-        artistId: String
-    ): MutableList<Artist> {
-        val artists: MutableList<Artist> = arrayListOf()
-
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                Log.d("Input : ", artistId)
-                val response = ApiClient.apiService.searchArtistById(artistId)
-                Log.d("Response :", response.toString())
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as FoundedArtistList
-                    for (artist: Artist in content.list) {
-                        this@HomeFavoritesFragment.artists.add(artist)
-                    }
-                    setArtists(view, artists)
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-                //TODO permettre de relancer la requête en cas d'erreur
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        Log.d("artistes : ", artists.toString())
-        return artists
-    }
-
-    private fun initAlbums(
-        view: View,
-        albumId: String,
-    ): MutableList<Album> {
-        val albums: MutableList<Album> = arrayListOf()
-
-        MainScope().launch(Dispatchers.Main) {
-            try {
-                //TODO barre de chargement
-                //TODO rassembler ce code dans une classe spéciale API ?
-                val response = ApiClient.apiService.getAlbumsById(albumId)
-
-
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body() as AlbumList
-                    for (album: Album in content.list) {
-                        this@HomeFavoritesFragment.albums.add(album)
-                    }
-                    setAlbums(view, albums)
-                } else {
-                    Log.d("ERROR", response.message())
-                }
-                //TODO permettre de relancer la requête en cas d'erreur
-
-            } catch (e: Exception) {
-                Log.d("ERROR CATCH", e.message.toString())
-            }
-        }
-        return albums
-    }
-
-
 }

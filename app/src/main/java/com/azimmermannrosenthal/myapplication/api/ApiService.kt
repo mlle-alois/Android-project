@@ -2,32 +2,33 @@ package com.azimmermannrosenthal.myapplication.api
 
 
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.*
+import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
 
     @GET("mostloved.php?format=track")
-    suspend fun getMostLovedTracks(): Response<LovedTrackList>
+    fun getMostLovedTracksAsync(): Deferred<LovedTrackList>
 
     @GET("mostloved.php?format=album")
-    suspend fun getMostLovedAlbums(): Response<LovedAlbumList>
+    fun getMostLovedAlbumsAsync(): Deferred<LovedAlbumList>
 
     @GET("search.php")
-    suspend fun searchArtistByName(@Query("s") artist : String): Response<FoundedArtistList>
+    fun searchArtistByNameAsync(@Query("s") artist : String): Deferred<FoundedArtistList>
 
     @GET("artist.php")
-    suspend fun searchArtistById(@Query("i") artist : String): Response<FoundedArtistList>
+    fun searchArtistByIdAsync(@Query("i") artist : String): Deferred<FoundedArtistList>
 
     @GET("album.php")
-    suspend fun getAlbumsById(@Query("m") albumId : String): Response<AlbumList>
+    fun getAlbumsByIdAsync(@Query("m") albumId : String): Deferred<AlbumList>
 
     @GET("album.php")
-    suspend fun getAlbumsByArtistId(@Query("i") artistId : String): Response<AlbumList>
+    fun getAlbumsByArtistIdAsync(@Query("i") artistId : String): Deferred<AlbumList>
 
     @GET("track-top10.php?")
-    suspend fun getTop10TracksByArtistName(@Query("s") artist: String): Response<TrackList>
+    fun getTop10TracksByArtistNameAsync(@Query("s") artist: String): Deferred<TrackList>
 
     @GET("track.php?")
-    suspend fun getTracksByAlbumId(@Query("m") albumId: String): Response<TrackList>
+    fun getTracksByAlbumIdAsync(@Query("m") albumId: String): Deferred<TrackList>
 }
