@@ -8,5 +8,5 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class TrackList(
     @SerializedName("track")
-    val trackList: List<Track>
+    val list: List<Track>
 ) : Parcelable

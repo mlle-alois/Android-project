@@ -114,7 +114,7 @@ class HomeRankingsFragment : Fragment() {
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as LovedTrackList
-                    for (track: Track in content.trackList) {
+                    for (track: Track in content.list) {
                         if (tracks.size >= 8) {
                             break
                         }
@@ -143,7 +143,7 @@ class HomeRankingsFragment : Fragment() {
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as LovedAlbumList
-                    for (album: Album in content.albumList) {
+                    for (album: Album in content.list) {
                         if (albums.size >= 8) {
                             break
                         }
@@ -223,7 +223,7 @@ class HomeRankingsFragment : Fragment() {
                     val content = response.body() as FoundedArtistList
                     findNavController().navigate(
                         HomeRankingsFragmentDirections.actionTabRankingsToArtistFragment(
-                            content.artistList[0]
+                            content.list[0]
                         )
                     )
                 } else {

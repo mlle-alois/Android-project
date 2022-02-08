@@ -107,7 +107,7 @@ class HomeSearchFragment : Fragment() {
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as AlbumList
-                    for (album: Album in content.albumList) {
+                    for (album: Album in content.list) {
                         this@HomeSearchFragment.albums.add(album)
                     }
                     setAlbums(view, albums)
@@ -138,7 +138,7 @@ class HomeSearchFragment : Fragment() {
                 Log.d("Response :", response.toString())
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as FoundedArtistList
-                    for (artist: Artist in content.artistList) {
+                    for (artist: Artist in content.list) {
                         this@HomeSearchFragment.artists.add(artist)
                         this@HomeSearchFragment.allArtist.add(artist)
 

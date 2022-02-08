@@ -140,7 +140,7 @@ class HomeFavoritesFragment : Fragment() {
                 Log.d("Response :", response.toString())
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as FoundedArtistList
-                    for (artist: Artist in content.artistList) {
+                    for (artist: Artist in content.list) {
                         this@HomeFavoritesFragment.artists.add(artist)
                     }
                     setArtists(view, artists)
@@ -172,7 +172,7 @@ class HomeFavoritesFragment : Fragment() {
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as AlbumList
-                    for (album: Album in content.albumList) {
+                    for (album: Album in content.list) {
                         this@HomeFavoritesFragment.albums.add(album)
                     }
                     setAlbums(view, albums)

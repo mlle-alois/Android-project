@@ -22,7 +22,6 @@ import com.azimmermannrosenthal.myapplication.adapters.TrackAdapter
 import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.AlbumList
 import com.azimmermannrosenthal.myapplication.api.recuperation_lists.TrackList
-import com.azimmermannrosenthal.myapplication.database.AlbumTable
 import com.azimmermannrosenthal.myapplication.database.AppDatabase
 import com.azimmermannrosenthal.myapplication.database.ArtistTable
 import com.azimmermannrosenthal.myapplication.objects.Album
@@ -146,7 +145,7 @@ class ArtistFragment : Fragment() {
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as AlbumList
-                    for (album: Album in content.albumList) {
+                    for (album: Album in content.list) {
                         albums.add(album)
                     }
                     numberOfAlbumsView.text = getString(R.string.number_of_albums, albums.size.toString())
@@ -177,7 +176,7 @@ class ArtistFragment : Fragment() {
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as TrackList
-                    for (track: Track in content.trackList) {
+                    for (track: Track in content.list) {
                         tracks.add(track)
                     }
                     setMostLovedTracks(view, tracks)

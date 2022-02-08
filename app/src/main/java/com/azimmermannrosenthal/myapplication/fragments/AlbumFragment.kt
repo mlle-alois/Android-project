@@ -119,7 +119,7 @@ class AlbumFragment : Fragment() {
                     if (response.isSuccessful && response.body() != null) {
                         val content = response.body() as FoundedArtistList
                         findNavController().navigate(
-                            AlbumFragmentDirections.actionAlbumFragmentToArtistFragment(content.artistList[0])
+                            AlbumFragmentDirections.actionAlbumFragmentToArtistFragment(content.list[0])
                         )
                     } else {
                         Log.d("ERROR", response.message())
@@ -171,7 +171,7 @@ class AlbumFragment : Fragment() {
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body() as TrackList
-                    for (track: Track in content.trackList) {
+                    for (track: Track in content.list) {
                         tracks.add(track)
                     }
                     numberOfTracksView.text = getString(R.string.songs, tracks.size.toString())

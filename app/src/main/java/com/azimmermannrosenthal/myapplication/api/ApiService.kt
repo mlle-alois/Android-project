@@ -14,7 +14,7 @@ interface ApiService {
     suspend fun getMostLovedAlbums(): Response<LovedAlbumList>
 
     @GET("search.php")
-    suspend fun searchArtistByName(@Query("s") artist : String): Response<FoundedArtistList> //TODO ajouter le % à la fin du nom de l'artiste
+    suspend fun searchArtistByName(@Query("s") artist : String): Response<FoundedArtistList>
 
     @GET("artist.php")
     suspend fun searchArtistById(@Query("i") artist : String): Response<FoundedArtistList>

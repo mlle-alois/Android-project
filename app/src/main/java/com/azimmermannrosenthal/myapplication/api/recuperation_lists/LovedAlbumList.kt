@@ -8,5 +8,5 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class LovedAlbumList(
     @SerializedName("loved")
-    val albumList: List<Album>
+    val list: List<Album>
 ) : Parcelable
