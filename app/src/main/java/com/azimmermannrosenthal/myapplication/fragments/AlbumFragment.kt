@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -78,7 +79,15 @@ class AlbumFragment : Fragment() {
         view.findViewById<TextView>(R.id.album_score).text = album.intScore
         view.findViewById<TextView>(R.id.album_votes).text =
             getString(R.string.votes, album.intScoreVotes)
-        if (Locale.getDefault().displayLanguage == "français") {
+
+        if(album.intScoreVotes == null) {
+            view.findViewById<CardView>(R.id.votes_card).visibility = View.GONE
+        }
+
+        if(album.strDescriptionFR == null && album.strDescriptionEN == null && album.strDescriptionEN == null) {
+            view.findViewById<TextView>(R.id.album_description).visibility = View.GONE
+        }
+        if (Locale.getDefault().displayLanguage == "français" && album.strDescriptionFR != null) {
             view.findViewById<TextView>(R.id.album_description).text = album.strDescriptionFR
         } else {
             if (album.strDescriptionEN == null) {

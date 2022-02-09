@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -61,6 +62,7 @@ class ArtistFragment : Fragment() {
 
         val artist: Artist = ArtistFragmentArgs.fromBundle(requireArguments()).artist
 
+        val albumsTextView: TextView = view.findViewById(R.id.albums)
         MainScope().launch(Dispatchers.Main) {
             tracks = withContext(Dispatchers.Main) {
                 ApiClient.getTop10TracksByArtistNameAsync(artist.strArtist)
@@ -73,7 +75,13 @@ class ArtistFragment : Fragment() {
             setMostLovedTracks(view, tracks)
             setAlbums(view, albums)
 
-            view.findViewById<TextView>(R.id.albums).text = getString(R.string.number_of_albums, albums.size.toString())
+            albumsTextView.text = getString(R.string.number_of_albums, albums.size.toString())
+            if(albums == null) {
+                albumsTextView.visibility = View.GONE
+            }
+            if(tracks == null) {
+                view.findViewById<TextView>(R.id.most_popular_tracks).visibility = View.GONE
+            }
         }
 
         Picasso.get().load(artist.strArtistThumb)
@@ -82,11 +90,14 @@ class ArtistFragment : Fragment() {
         view.findViewById<TextView>(R.id.artist_localisation_and_style).text =
             getString(R.string.artist_localisation_and_style, artist.strCountry, artist.strGenre)
 
-
+        val artistDescriptionTextView: TextView = view.findViewById(R.id.artist_description)
+        if(artist.strBiographyFR == null && artist.strBiographyEN == null) {
+            view.findViewById<ScrollView>(R.id.artist_description_scroll_view).visibility = GONE
+        }
         if (Locale.getDefault().displayLanguage == "français") {
-            view.findViewById<TextView>(R.id.artist_description).text = artist.strBiographyFR
+            artistDescriptionTextView.text = artist.strBiographyFR
         } else {
-            view.findViewById<TextView>(R.id.artist_description).text = artist.strBiographyEN
+            artistDescriptionTextView.text = artist.strBiographyEN
         }
 
         val db = Room.databaseBuilder(
@@ -148,7 +159,7 @@ class ArtistFragment : Fragment() {
         albums: List<Album>
     ) {
 
-        if (albums.isNotEmpty()) {
+        if (albums != null && albums.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.album_list).run {
                 adapter = ItemAlbumAdapter(
                     albums,
@@ -172,7 +183,7 @@ class ArtistFragment : Fragment() {
         tracks: List<Track>
     ) {
 
-        if (tracks.isNotEmpty()) {
+        if (tracks != null && tracks.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.track_list).run {
                 adapter = TrackAdapter(
                     tracks,

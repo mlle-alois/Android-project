@@ -53,6 +53,15 @@ class HomeSearchFragment : Fragment() {
         (activity as AppCompatActivity).findViewById<BottomNavigationView>(R.id.home_nav).visibility =
             View.VISIBLE
 
+        if(artists.isEmpty()) {
+            view.findViewById<TextView>(R.id.artists).visibility = View.GONE
+            //TODO message de vide
+        }
+        if(albums.isEmpty()) {
+            view.findViewById<TextView>(R.id.albums).visibility = View.GONE
+            //TODO message de vide
+        }
+
         clearSearchListener(view)
 
         setOnTextChangeListener(view)
@@ -74,6 +83,13 @@ class HomeSearchFragment : Fragment() {
                         }.await().list
 
                         setArtists(view, artists)
+
+                        if(artists.isEmpty()) {
+                            view.findViewById<TextView>(R.id.artists).visibility = View.GONE
+                            //TODO message de vide
+                        } else {
+                            view.findViewById<TextView>(R.id.artists).visibility = View.VISIBLE
+                        }
                     }
                     Log.d("artists : ", artists.toString())
 
@@ -88,6 +104,12 @@ class HomeSearchFragment : Fragment() {
 
                             setAlbums(view, albums)
 
+                            if(albums.isEmpty()) {
+                                view.findViewById<TextView>(R.id.albums).visibility = View.GONE
+                                //TODO message de vide
+                            } else {
+                                view.findViewById<TextView>(R.id.albums).visibility = View.VISIBLE
+                            }
                         }
                     }
 

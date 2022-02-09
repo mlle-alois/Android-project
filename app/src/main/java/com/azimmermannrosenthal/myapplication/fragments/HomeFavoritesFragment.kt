@@ -69,6 +69,12 @@ class HomeFavoritesFragment : Fragment() {
                 }.await().list[0])
             }
             setArtists(view, artists)
+            if(artists.isEmpty()) {
+                view.findViewById<TextView>(R.id.artists).visibility = View.GONE
+                //TODO message de vide
+            } else {
+                view.findViewById<TextView>(R.id.artists).visibility = View.VISIBLE
+            }
         }
 
         val albumDao = db.albumDao()
@@ -84,6 +90,12 @@ class HomeFavoritesFragment : Fragment() {
                 }.await().list[0])
             }
             setAlbums(view, albums)
+            if(albums.isEmpty()) {
+                view.findViewById<TextView>(R.id.albums).visibility = View.GONE
+                //TODO message de vide
+            } else {
+                view.findViewById<TextView>(R.id.albums).visibility = View.VISIBLE
+            }
         }
 
     }
