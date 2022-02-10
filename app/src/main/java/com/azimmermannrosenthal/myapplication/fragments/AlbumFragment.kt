@@ -121,7 +121,7 @@ class AlbumFragment : Fragment() {
                 favoriteButtonOn.visibility = GONE
                 albums = userDao.getAll()
             } else {
-                userDao.insert(AlbumTable(album.idAlbum))
+                userDao.insert(AlbumTable(album.idAlbum, album.strAlbum, album.strArtist, album.strAlbumThumb))
                 favoriteButtonOn.visibility = VISIBLE
                 albums = userDao.getAll()
             }

@@ -123,7 +123,7 @@ class ArtistFragment : Fragment() {
                 favoriteButtonOn.visibility = GONE
                 artists = artistDao.getAll()
             } else {
-                artistDao.insert(ArtistTable(artist.idArtist))
+                artistDao.insert(ArtistTable(artist.idArtist, artist.strArtist, artist.strArtistThumb))
                 favoriteButtonOn.visibility = VISIBLE
                 artists = artistDao.getAll()
             }

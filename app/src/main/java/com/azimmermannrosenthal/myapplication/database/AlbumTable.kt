@@ -6,5 +6,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class AlbumTable(
     @PrimaryKey
-    val albumId: String
+    val albumId: String,
+    val strAlbum: String,
+    val strArtist: String,
+    val strAlbumThumb: String,
 )
