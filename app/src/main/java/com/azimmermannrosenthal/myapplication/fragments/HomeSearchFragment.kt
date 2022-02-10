@@ -91,10 +91,8 @@ class HomeSearchFragment : Fragment() {
                             view.findViewById<TextView>(R.id.artists).visibility = View.VISIBLE
                         }
                     }
-                    Log.d("artists : ", artists.toString())
 
                     if (artists.isNotEmpty()) {
-                        Log.d("artist id : ", artists.takeLast(1)[0].idArtist)
 
                         MainScope().launch(Dispatchers.Main) {
 
