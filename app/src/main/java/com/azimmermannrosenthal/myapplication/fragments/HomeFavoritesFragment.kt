@@ -55,34 +55,33 @@ class HomeFavoritesFragment : Fragment() {
 
         activity.findViewById<BottomNavigationView>(R.id.home_nav).visibility = View.VISIBLE
 
-        var db = getDatabaseInstance(activity)
+        val db = getDatabaseInstance(activity)
 
         val artistDao = db.artistDao()
         val artistsTable: List<ArtistTable> = artistDao.getAll()
-        var artistsIds: MutableList<String> = mutableListOf<String>()
-
-        artistsIds = artistsTable.map { it.artistId } as MutableList<String>
-
-        MainScope().launch(Dispatchers.Main) {
-            artistsIds.forEach {
-                artists.add(withContext(Dispatchers.Main) {
-                    ApiClient.searchArtistByIdAsync(it)
-                }.await().list[0])
-            }
-            setArtists(view, artists)
-            if(artists.isEmpty()) {
-                view.findViewById<TextView>(R.id.artists).visibility = View.GONE
-                //TODO message de vide
-            } else {
-                view.findViewById<TextView>(R.id.artists).visibility = View.VISIBLE
-            }
-        }
 
         val albumDao = db.albumDao()
         val albumsTable: List<AlbumTable> = albumDao.getAll()
 
-        if(isInternetAvailable(view.context)) {
-            var albumsIds = albumsTable.map { it.albumId } as MutableList<String>
+        if (isInternetAvailable(view.context)) {
+            val artistsIds = artistsTable.map { it.artistId } as MutableList<String>
+
+            MainScope().launch(Dispatchers.Main) {
+                artistsIds.forEach {
+                    artists.add(withContext(Dispatchers.Main) {
+                        ApiClient.searchArtistByIdAsync(it)
+                    }.await().list[0])
+                }
+                setArtists(view, artists)
+                if (artists.isEmpty()) {
+                    view.findViewById<TextView>(R.id.artists).visibility = View.GONE
+                    //TODO message de vide
+                } else {
+                    view.findViewById<TextView>(R.id.artists).visibility = View.VISIBLE
+                }
+            }
+
+            val albumsIds = albumsTable.map { it.albumId } as MutableList<String>
 
             MainScope().launch(Dispatchers.Main) {
                 albumsIds.forEach {
@@ -91,7 +90,7 @@ class HomeFavoritesFragment : Fragment() {
                     }.await().list[0])
                 }
                 setAlbums(view, albums)
-                if(albums.isEmpty()) {
+                if (albums.isEmpty()) {
                     view.findViewById<TextView>(R.id.albums).visibility = View.GONE
                     //TODO message de vide
                 } else {
@@ -99,16 +98,43 @@ class HomeFavoritesFragment : Fragment() {
                 }
             }
         } else {
-            //TODO afficher sans connexion
-            //setAlbumsWithoutConnexion(view, albums)
-            //setArtistsWithoutConnexion(view, artists)
+            albums = albumsTable.map {
+                Album(
+                    it.albumId,
+                    "",
+                    it.strAlbum,
+                    it.strArtist,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    it.strAlbumThumb
+                )
+            } as MutableList<Album>
+            setAlbums(view, albums)
+            artists = artistsTable.map {
+                Artist(
+                    it.artistId,
+                    it.strArtist,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    it.strArtistThumb,
+                    ""
+                )
+            } as MutableList<Artist>
+            setArtists(view, artists)
         }
-
-
-
     }
 
-    fun isInternetAvailable(context: Context): Boolean {
+    private fun isInternetAvailable(context: Context): Boolean {
         var result = false
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -146,30 +172,6 @@ class HomeFavoritesFragment : Fragment() {
         return db
     }
 
-    private fun setAlbumsWithoutConnexion(
-        view: View,
-        albums: List<Album>
-    ) {
-
-        if (albums.isNotEmpty()) {
-            view.findViewById<RecyclerView>(R.id.album_list).run {
-                adapter = ItemAlbumAdapter(
-                    albums,
-                    listener = object : ItemClickListener {
-                        override fun onItemClicked(position: Int) {
-                            findNavController().navigate(
-                                HomeFavoritesFragmentDirections.actionTabFavoritesToAlbumFragment(
-                                    albums[position]
-                                )
-                            )
-                        }
-                    }
-                )
-                layoutManager = LinearLayoutManager(requireContext())
-            }
-        }
-    }
-
     private fun setAlbums(
         view: View,
         albums: List<Album>
@@ -184,30 +186,6 @@ class HomeFavoritesFragment : Fragment() {
                             findNavController().navigate(
                                 HomeFavoritesFragmentDirections.actionTabFavoritesToAlbumFragment(
                                     albums[position]
-                                )
-                            )
-                        }
-                    }
-                )
-                layoutManager = LinearLayoutManager(requireContext())
-            }
-        }
-    }
-
-    private fun setArtistsWithoutConnexion(
-        view: View,
-        artists: List<Artist>
-    ) {
-
-        if (this.artists.isNotEmpty()) {
-            view.findViewById<RecyclerView>(R.id.artist_list).run {
-                adapter = ItemArtistAdapter(
-                    artists,
-                    listener = object : ItemClickListener {
-                        override fun onItemClicked(position: Int) {
-                            findNavController().navigate(
-                                HomeFavoritesFragmentDirections.actionTabFavoritesToArtistFragment(
-                                    artists[position]
                                 )
                             )
                         }
