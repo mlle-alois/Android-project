@@ -82,9 +82,7 @@ class HomeFavoritesFragment : Fragment() {
         val albumsTable: List<AlbumTable> = albumDao.getAll()
 
         if(isInternetAvailable(view.context)) {
-            var albumsIds: MutableList<String> = mutableListOf<String>()
-
-            albumsIds = albumsTable.map { it.albumId } as MutableList<String>
+            var albumsIds = albumsTable.map { it.albumId } as MutableList<String>
 
             MainScope().launch(Dispatchers.Main) {
                 albumsIds.forEach {
