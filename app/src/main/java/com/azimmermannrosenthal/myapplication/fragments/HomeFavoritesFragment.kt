@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -72,7 +73,10 @@ class HomeFavoritesFragment : Fragment() {
                         ApiClient.searchArtistByIdAsync(it)
                     }.await().list[0])
                 }
+
                 setArtists(view, artists)
+                view.findViewById<ProgressBar>(R.id.progressBarArtists).visibility = View.GONE
+
                 if (artists.isEmpty()) {
                     view.findViewById<TextView>(R.id.artists).visibility = View.GONE
                     //TODO message de vide
@@ -90,6 +94,8 @@ class HomeFavoritesFragment : Fragment() {
                     }.await().list[0])
                 }
                 setAlbums(view, albums)
+                view.findViewById<ProgressBar>(R.id.progressBarAlbums).visibility = View.GONE
+
                 if (albums.isEmpty()) {
                     view.findViewById<TextView>(R.id.albums).visibility = View.GONE
                     //TODO message de vide

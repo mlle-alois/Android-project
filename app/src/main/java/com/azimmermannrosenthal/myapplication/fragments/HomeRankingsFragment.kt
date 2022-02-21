@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -59,6 +60,8 @@ class HomeRankingsFragment : Fragment() {
             }.await().list
 
             setMostLovedTracks(view, tracks)
+
+            view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
         }
 
         val title = (activity as AppCompatActivity).findViewById<TextView>(R.id.title)

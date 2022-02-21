@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -82,6 +83,7 @@ class ArtistFragment : Fragment() {
             if(tracks == null) {
                 view.findViewById<TextView>(R.id.most_popular_tracks).visibility = View.GONE
             }
+            view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
         }
 
         Picasso.get().load(artist.strArtistThumb)

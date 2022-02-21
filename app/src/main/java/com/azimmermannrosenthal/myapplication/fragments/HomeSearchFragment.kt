@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -78,11 +79,15 @@ class HomeSearchFragment : Fragment() {
                 if (s != "") {
                     MainScope().launch(Dispatchers.Main) {
 
+                        view.findViewById<ProgressBar>(R.id.progressBarArtists).visibility = View.VISIBLE
+
                         artists = withContext(Dispatchers.Main) {
                             ApiClient.searchArtistByNameAsync(s.toString() + "%")
                         }.await().list
 
                         setArtists(view, artists)
+
+                        view.findViewById<ProgressBar>(R.id.progressBarArtists).visibility = View.GONE
 
                         if(artists.isEmpty()) {
                             view.findViewById<TextView>(R.id.artists).visibility = View.GONE
@@ -96,11 +101,15 @@ class HomeSearchFragment : Fragment() {
 
                         MainScope().launch(Dispatchers.Main) {
 
+                            view.findViewById<ProgressBar>(R.id.progressBarAlbums).visibility = View.VISIBLE
+
                             albums = withContext(Dispatchers.Main) {
                                 ApiClient.getAlbumsByArtistIdAsync(artists.takeLast(1)[0].idArtist)
                             }.await().list
 
                             setAlbums(view, albums)
+
+                            view.findViewById<ProgressBar>(R.id.progressBarAlbums).visibility = View.GONE
 
                             if(albums.isEmpty()) {
                                 view.findViewById<TextView>(R.id.albums).visibility = View.GONE

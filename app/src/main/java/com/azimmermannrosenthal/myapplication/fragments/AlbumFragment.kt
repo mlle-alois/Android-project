@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -67,6 +68,7 @@ class AlbumFragment : Fragment() {
             setMostLovedTracks(view, tracks)
 
             view.findViewById<TextView>(R.id.album_number_of_tracks).text = getString(R.string.songs, tracks.size.toString())
+            view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
         }
 
         view.findViewById<TextView>(R.id.album_artist).text = album.strArtist
