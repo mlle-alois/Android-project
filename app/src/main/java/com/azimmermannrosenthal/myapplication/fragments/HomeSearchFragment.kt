@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -23,6 +20,7 @@ import com.azimmermannrosenthal.myapplication.api.ApiClient
 import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -56,11 +54,9 @@ class HomeSearchFragment : Fragment() {
 
         if(artists.isEmpty()) {
             view.findViewById<TextView>(R.id.artists).visibility = View.GONE
-            //TODO message de vide
         }
         if(albums.isEmpty()) {
             view.findViewById<TextView>(R.id.albums).visibility = View.GONE
-            //TODO message de vide
         }
 
         clearSearchListener(view)
@@ -89,15 +85,14 @@ class HomeSearchFragment : Fragment() {
 
                         view.findViewById<ProgressBar>(R.id.progressBarArtists).visibility = View.GONE
 
-                        if(artists.isEmpty()) {
+                        if(artists.isNullOrEmpty()) {
                             view.findViewById<TextView>(R.id.artists).visibility = View.GONE
-                            //TODO message de vide
                         } else {
                             view.findViewById<TextView>(R.id.artists).visibility = View.VISIBLE
                         }
                     }
 
-                    if (artists.isNotEmpty()) {
+                    if (!artists.isNullOrEmpty()) {
 
                         MainScope().launch(Dispatchers.Main) {
 
@@ -111,9 +106,8 @@ class HomeSearchFragment : Fragment() {
 
                             view.findViewById<ProgressBar>(R.id.progressBarAlbums).visibility = View.GONE
 
-                            if(albums.isEmpty()) {
+                            if(albums.isNullOrEmpty()) {
                                 view.findViewById<TextView>(R.id.albums).visibility = View.GONE
-                                //TODO message de vide
                             } else {
                                 view.findViewById<TextView>(R.id.albums).visibility = View.VISIBLE
                             }
@@ -145,7 +139,6 @@ class HomeSearchFragment : Fragment() {
         view: View,
         albums: List<Album>
     ) {
-
         if (albums.isNotEmpty()) {
             view.findViewById<RecyclerView>(R.id.album_list).run {
                 adapter = ItemAlbumAdapter(
@@ -167,8 +160,20 @@ class HomeSearchFragment : Fragment() {
         view: View,
         artists: List<Artist>
     ) {
+       if(this.artists.isNullOrEmpty()){
+
+           Snackbar.make(view, "No artist found", 3000 ).show()
+           view.findViewById<RecyclerView>(R.id.artist_list).visibility = View.GONE
+
+           view.findViewById<RecyclerView>(R.id.album_list).visibility = View.GONE
+           view.findViewById<TextView>(R.id.albums).visibility = View.GONE
+           return
+        }
 
         if (this.artists.isNotEmpty()) {
+            view.findViewById<RecyclerView>(R.id.artist_list).visibility = View.VISIBLE
+
+            view.findViewById<RecyclerView>(R.id.album_list).visibility = View.VISIBLE
             view.findViewById<RecyclerView>(R.id.artist_list).run {
                 adapter = ItemArtistAdapter(
                     artists,

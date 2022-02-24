@@ -27,6 +27,7 @@ import com.azimmermannrosenthal.myapplication.listeners.ItemClickListener
 import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Artist
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -79,10 +80,11 @@ class HomeFavoritesFragment : Fragment() {
 
                 if (artists.isEmpty()) {
                     view.findViewById<TextView>(R.id.artists).visibility = View.GONE
-                    //TODO message de vide
+                    Snackbar.make(view, "No favorites artists", 3000 ).show()
                 } else {
                     view.findViewById<TextView>(R.id.artists).visibility = View.VISIBLE
                 }
+
             }
 
             val albumsIds = albumsTable.map { it.albumId } as MutableList<String>
@@ -98,7 +100,7 @@ class HomeFavoritesFragment : Fragment() {
 
                 if (albums.isEmpty()) {
                     view.findViewById<TextView>(R.id.albums).visibility = View.GONE
-                    //TODO message de vide
+                        Snackbar.make(view, "No favorites albums", 3000 ).show()
                 } else {
                     view.findViewById<TextView>(R.id.albums).visibility = View.VISIBLE
                 }
@@ -138,6 +140,7 @@ class HomeFavoritesFragment : Fragment() {
             } as MutableList<Artist>
             setArtists(view, artists)
         }
+
     }
 
     private fun isInternetAvailable(context: Context): Boolean {
@@ -183,7 +186,7 @@ class HomeFavoritesFragment : Fragment() {
         albums: List<Album>
     ) {
 
-        if (albums.isNotEmpty()) {
+        if (!albums.isNullOrEmpty()) {
             view.findViewById<RecyclerView>(R.id.album_list).run {
                 adapter = ItemAlbumAdapter(
                     albums,
@@ -207,7 +210,7 @@ class HomeFavoritesFragment : Fragment() {
         artists: List<Artist>
     ) {
 
-        if (this.artists.isNotEmpty()) {
+        if (!this.artists.isNullOrEmpty()) {
             view.findViewById<RecyclerView>(R.id.artist_list).run {
                 adapter = ItemArtistAdapter(
                     artists,
