@@ -23,6 +23,22 @@
             app:layout_constraintGuide_begin="10dp" />
 
         <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/light_grey"
+            android:paddingStart="15dp"
+            android:text="@string/my_artists_and_albums"
+            android:background="@drawable/grey_textline"
+            android:fontFamily="@font/sf_pro_text_regular"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingEnd="15dp"
+            android:paddingBottom="12dp"
+            />
+
+        <TextView
             android:id="@+id/artists"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,10 +50,9 @@
             android:fontFamily="@font/sf_pro_display_heavy"
             android:layout_marginTop="30dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/subtitle"
             android:layout_marginEnd="15dp"
             android:paddingBottom="12dp"
-
             />
 
         <ProgressBar
