@@ -1,7 +1,8 @@
 package com.azimmermannrosenthal.myapplication.fragments
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.azimmermannrosenthal.myapplication.listeners.AlbumClickListener
 import com.azimmermannrosenthal.myapplication.R
 import com.azimmermannrosenthal.myapplication.adapters.HomeAlbumAdapter
 import com.azimmermannrosenthal.myapplication.adapters.HomeTrackAdapter
-import com.azimmermannrosenthal.myapplication.listeners.TrackClickListener
 import com.azimmermannrosenthal.myapplication.api.ApiClient
-import com.azimmermannrosenthal.myapplication.api.recuperation_lists.FoundedArtistList
-import com.azimmermannrosenthal.myapplication.api.recuperation_lists.LovedAlbumList
+import com.azimmermannrosenthal.myapplication.listeners.AlbumClickListener
+import com.azimmermannrosenthal.myapplication.listeners.TrackClickListener
 import com.azimmermannrosenthal.myapplication.objects.Album
 import com.azimmermannrosenthal.myapplication.objects.Track
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 class HomeRankingsFragment : Fragment() {
 
@@ -49,6 +49,8 @@ class HomeRankingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if(!isNetworkConnected())
+            return
 
         MainScope().launch(Dispatchers.Main) {
             tracks = withContext(Dispatchers.Main) {
@@ -119,7 +121,7 @@ class HomeRankingsFragment : Fragment() {
         view: View,
         tracks: List<Track>
     ) {
-        if (tracks.isNotEmpty()) {
+        if (!tracks.isNullOrEmpty()) {
             view.findViewById<RecyclerView>(R.id.item_list).run {
                 adapter = HomeTrackAdapter(
                     tracks,
@@ -146,7 +148,7 @@ class HomeRankingsFragment : Fragment() {
         view: View,
         albums: List<Album>
     ) {
-        if (albums.isNotEmpty()) {
+        if (!albums.isNullOrEmpty()) {
             view.findViewById<RecyclerView>(R.id.item_list).run {
                 adapter = HomeAlbumAdapter(
                     albums,
@@ -179,5 +181,9 @@ class HomeRankingsFragment : Fragment() {
                 )
             )
         }
+    }
+    private fun isNetworkConnected(): Boolean {
+        val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.activeNetworkInfo != null
     }
 }

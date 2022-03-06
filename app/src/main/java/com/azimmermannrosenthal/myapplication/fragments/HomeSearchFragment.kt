@@ -1,5 +1,7 @@
 package com.azimmermannrosenthal.myapplication.fragments
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -60,6 +62,9 @@ class HomeSearchFragment : Fragment() {
         }
 
         clearSearchListener(view)
+
+        if(!isNetworkConnected())
+            return
 
         setOnTextChangeListener(view)
 
@@ -188,5 +193,9 @@ class HomeSearchFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }
+    }
+    private fun isNetworkConnected(): Boolean {
+        val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.activeNetworkInfo != null
     }
 }
